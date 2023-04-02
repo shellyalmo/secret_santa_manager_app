@@ -1,4 +1,4 @@
 import AdminHome from "./AdminHome";
 import GameSettings from "./GameSettings";
-import CurrentGame from "./CurrentGame";
-export { GameSettings, AdminHome, CurrentGame };
+import AdminCurrentGame from "./AdminCurrentGame";
+export { GameSettings, AdminHome, AdminCurrentGame };

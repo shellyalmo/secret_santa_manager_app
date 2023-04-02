@@ -6,8 +6,7 @@
   justify-content: center;
   align-items: center;
 }
-.login,
-form {
+.login {
   display: flex;
   flex-direction: column;
   background-color: #b9e6fb;
