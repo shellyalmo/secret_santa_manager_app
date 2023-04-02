@@ -1,0 +1,34 @@
+/* body {
+  background-color: #b9e6fb;
+} */
+.login-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login,
+form {
+  display: flex;
+  flex-direction: column;
+  background-color: #b9e6fb;
+  border: 5px solid white;
+}
+
+.login-showcase {
+  background-image: url("../assets/gifts-showcase-login.jpg");
+  width: 40vw;
+  height: 70vh;
+
+  background-size: cover;
+}
+
+@media only screen and (max-width: 600px) {
+  .login-screen {
+    flex-direction: column;
+  }
+
+  .login-showcase {
+    width: 80vw;
+    height: 40vh;
+  }
+}
