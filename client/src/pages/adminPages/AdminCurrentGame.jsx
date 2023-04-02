@@ -68,7 +68,6 @@ const CurrentGame = () => (
           </tr>
         </tbody>
       </table>
-      <button>Close Game</button>
     </div>
   </>
 );

@@ -9,11 +9,11 @@ const Login = () => {
 
         <form className="login-form">
           <label htmlFor="uname">
-            <b>Username: </b>
+            <b>Full Name: </b>
           </label>
           <input
             type="text"
-            placeholder="Enter Username"
+            placeholder="Enter your full name"
             name="uname"
             required
           />
@@ -28,11 +28,15 @@ const Login = () => {
             required
           />
           <div className="login-buttons">
-            <button type="submit">Login</button>
+            <button type="submit" className="login-btn">
+              Login
+            </button>
           </div>
 
-          <div>
-            <button type="button">Signup</button>
+          <div className="login-buttons">
+            <button type="button" className="signup-btn">
+              Signup
+            </button>
             <span>
               Forgot <a href="#">password?</a>
             </span>

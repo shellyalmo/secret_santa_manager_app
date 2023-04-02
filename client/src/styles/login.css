@@ -19,6 +19,7 @@
 .login-form {
   display: flex;
   flex-direction: column;
+  padding: 1rem 7rem;
 }
 
 .login-showcase {
@@ -28,7 +29,17 @@
 
   background-size: cover;
 }
-
+.login-btn {
+  background-color: #44977f;
+  color: white;
+  margin-top: 2rem;
+}
+.signup-btn {
+  background-color: #b9e6fb;
+}
+.login-buttons {
+  padding: 0.5rem;
+}
 @media only screen and (max-width: 600px) {
   .login-screen {
     flex-direction: column;
