@@ -5,8 +5,9 @@ const Login = () => {
     <div className="login-screen">
       <div className="login-showcase"></div>
       <div className="login">
-        <h2>Login/Signin</h2>
-        <form>
+        <h2>Welcome to Secret Santa App!</h2>
+
+        <form className="login-form">
           <label htmlFor="uname">
             <b>Username: </b>
           </label>
@@ -28,11 +29,10 @@ const Login = () => {
           />
           <div className="login-buttons">
             <button type="submit">Login</button>
-            <button type="submit">Signin</button>
           </div>
 
           <div>
-            <button type="button">Cancel</button>
+            <button type="button">Signup</button>
             <span>
               Forgot <a href="#">password?</a>
             </span>
