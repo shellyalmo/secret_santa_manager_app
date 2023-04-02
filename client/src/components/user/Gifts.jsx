@@ -1,7 +1,17 @@
-import React from "react";
+import { useState } from "react";
+import Confetti from "react-confetti";
 
 const Gifts = () => {
   const receiver = "Bob";
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  const handleClick = () => {
+    setShowConfetti(true);
+    setTimeout(() => {
+      setShowConfetti(false);
+    }, 10000);
+  };
+
   return (
     <>
       <h2>Your receiver is {receiver}!</h2>
@@ -27,7 +37,8 @@ const Gifts = () => {
           <li>Cat Ears</li>
         </ul>
       </div>
-      <button>Notify Admin I gave my gift!</button>
+      <button onClick={handleClick}>Notify Admin I gave my gift!</button>
+      {showConfetti && <Confetti />}
     </>
   );
 };
