@@ -40,6 +40,7 @@
 .login-buttons {
   padding: 0.5rem;
 }
+
 @media only screen and (max-width: 600px) {
   .login-screen {
     flex-direction: column;
