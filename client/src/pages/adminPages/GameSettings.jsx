@@ -4,12 +4,15 @@ const GameSettings = () => (
     <div>
       <h1>Choose a Holiday Theme:</h1>
     </div>
-    <div className="">
-      <button>Start a New Game</button>
-      <h4>Continue Existing Games:</h4>
-      <button>Game1</button>
-      <button>Game2</button>
-      <button>Game3</button>
+    <div className="themes">
+      <button className="christmas-btn">Christmas</button>
+      <button className="purim-btn">Purim</button>
+      <button className="eid-btn">Eid</button>
+    </div>
+    <button>Start Game</button>
+    <div>
+      <p>Share Game Link:</p>
+      <p>http://gamelink.app</p>
     </div>
   </>
 );
