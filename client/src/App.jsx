@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path="/login" element={<Login />}></Route>
+          <Route path="/" element={<Login />}></Route>
           <Route path="/admin" element={<SharedLayout />}>
             <Route index element={<AdminHome />} />
             <Route path="gamesettings" element={<GameSettings />} />

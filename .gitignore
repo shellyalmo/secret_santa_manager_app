@@ -1,4 +1,46 @@
+# Dependencies
+node_modules/
+/node_modules
+.pnp.js
+.history
+
+# Build/Production
+/client/build
+
+# Testing & Coverage
+/coverage
+
+# Environment variables
+*.env*
+!.env.example
+
+
+# Editor specific
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Temporary files
+*.sw?
+*.lock
+*.cache
+.DS_Store
+
+# Generated / Auto-generated files
+/dist
+/dist-ssr
+.eslintcache
+desktop.ini
+
+# Configuration
+.prettierrc
+
+
 # Logs
+/logs
 logs
 *.log
 npm-debug.log*
