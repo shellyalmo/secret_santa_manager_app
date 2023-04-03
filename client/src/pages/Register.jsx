@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 
 /**
  *
- * @param {{email: string, password}} form
+ * @param {{email: string, password: string, name: string}} form
  * @returns
  */
-const login = (form) => {
+const register = (form) => {
   let config = {
     data: form,
   };
-  return secretSantaApi.post("/auth/login", config);
+  return secretSantaApi.post("/auth/register", config);
 };
 
 const Login = () => {
@@ -20,6 +20,7 @@ const Login = () => {
   const [form, setForm] = useState({
     password: "",
     email: "",
+    name: "",
   });
 
   return (
@@ -29,6 +30,20 @@ const Login = () => {
         <h2>Welcome to Secret Santa App!</h2>
 
         <form method="post" className="login-form">
+          <label htmlFor="name">
+            <b>Full Name: </b>
+          </label>
+          <input
+            type="text"
+            onChange={(e) => {
+              setForm({ ...form, name: e.target.value });
+            }}
+            placeholder="Enter full name"
+            name="name"
+            value={form.name}
+            required
+            autoComplete="name"
+          />
           <label htmlFor="eml">
             <b>Email: </b>
           </label>
@@ -60,7 +75,7 @@ const Login = () => {
               type="button"
               onClick={async () => {
                 try {
-                  const result = await login(form);
+                  const result = await register(form);
                   if (result.status === 200) {
                     navigate("/user");
                   } else {
@@ -72,21 +87,8 @@ const Login = () => {
               }}
               className="login-btn"
             >
-              Login
-            </button>
-          </div>
-
-          <div className="login-buttons">
-            <button
-              type="button"
-              className="signup-btn"
-              onClick={() => navigate("/register")}
-            >
               Register
             </button>
-            {/* <span>
-              Forgot <a href="#">password?</a>
-            </span> */}
           </div>
         </form>
       </div>

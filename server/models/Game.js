@@ -15,7 +15,10 @@ const GameSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-
+    admin: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     users: [
       {
         type: mongoose.Schema.Types.ObjectId,

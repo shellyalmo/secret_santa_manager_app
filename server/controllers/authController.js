@@ -9,7 +9,7 @@ import User from "../models/User.js";
 // @route   POST /api/v1/auth/register
 // @access  Public
 export const registerUser = asyncHandler(async (req, res, next) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role = "user" } = req.body.data;
 
   const user = await User.create({
     name,
