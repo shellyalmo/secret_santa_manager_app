@@ -78,7 +78,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
   res.json({
-    message: "Welcome to Bootcamp API",
+    message: "Welcome to Secret Santa API",
   });
 });
 

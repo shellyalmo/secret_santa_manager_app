@@ -1,6 +1,6 @@
 {
   "name": "secret-santa-backend",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Secret Santa App Backend",
   "main": "server.js",
   "type": "module",
@@ -24,7 +24,6 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.1",
     "morgan": "^1.10.0",
-    "node-geocoder": "^4.2.0",
     "nodemailer": "^6.9.1",
     "slugify": "^1.6.5",
     "xss-clean": "^0.1.1"

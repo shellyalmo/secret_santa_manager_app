@@ -7,7 +7,6 @@ const GameSchema = new mongoose.Schema(
       enum: ["christmas", "purim", "eid"],
       default: "christmas",
     },
-
     isActive: {
       type: Boolean,
       default: false,
