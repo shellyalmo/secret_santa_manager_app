@@ -1,10 +1,13 @@
 import "../styles/login.css";
 import { useState } from "react";
 import { secretSantaApi } from "../api/api";
+import { Link } from "react-router-dom";
 
 const createUserApi = (form) => {
   return secretSantaApi.post("/users", form);
 };
+
+const redirect = location.search ? location.search.split("=")[1] : "/";
 
 const Login = ({ setNewUser }) => {
   const [form, setForm] = useState({
@@ -51,11 +54,13 @@ const Login = ({ setNewUser }) => {
               type="button"
               onClick={async () => {
                 await createUserApi(form);
-                setNewUser(form.passportID);
+                setNewUser(form.email);
               }}
               className="login-btn"
             >
-              Login
+              <Link to={redirect ? `/user?redirect=${redirect}` : "/user"}>
+                Login
+              </Link>
             </button>
           </div>
 

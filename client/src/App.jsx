@@ -18,7 +18,7 @@ function App() {
             <Route path="game/:id" element={<AdminCurrentGame />} />
             {/* <Route path="*" element={<NotFound />} /> */}
           </Route>
-          <Route path="/user" element={<SharedLayout />}>
+          <Route path="/user/:id" element={<SharedLayout />}>
             <Route index element={<UserHome />} />
             <Route path="game/:id" element={<UserCurrentGame />} />
             {/* <Route path="*" element={<NotFound />} /> */}
