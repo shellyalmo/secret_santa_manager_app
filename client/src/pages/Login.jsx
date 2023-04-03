@@ -58,7 +58,9 @@ const Login = ({ setNewUser }) => {
               }}
               className="login-btn"
             >
-              <Link to={redirect ? `/user?redirect=${redirect}` : "/user"}>
+              <Link
+                to={redirect ? `/user/:id?redirect=${redirect}` : "/user/:id"}
+              >
                 Login
               </Link>
             </button>
