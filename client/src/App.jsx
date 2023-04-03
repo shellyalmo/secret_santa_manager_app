@@ -11,14 +11,14 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path="/login" element={<Login />}></Route>
+          <Route path="/" element={<Login />}></Route>
           <Route path="/admin" element={<SharedLayout />}>
             <Route index element={<AdminHome />} />
             <Route path="gamesettings" element={<GameSettings />} />
             <Route path="game/:id" element={<AdminCurrentGame />} />
             {/* <Route path="*" element={<NotFound />} /> */}
           </Route>
-          <Route path="/user" element={<SharedLayout />}>
+          <Route path="/user/:id" element={<SharedLayout />}>
             <Route index element={<UserHome />} />
             <Route path="game/:id" element={<UserCurrentGame />} />
             {/* <Route path="*" element={<NotFound />} /> */}
