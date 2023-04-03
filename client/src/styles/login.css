@@ -26,12 +26,13 @@
   background-image: url("../assets/gifts-showcase-login.jpg");
   width: 40vw;
   height: 70vh;
-
   background-size: cover;
+  object-position: center;
 }
 .login-btn {
-  background-color: #44977f;
-  color: white;
+  /* background-color: #44977f; */
+  background-color: #b9e6fb;
+
   margin-top: 2rem;
 }
 .signup-btn {
@@ -47,7 +48,26 @@
   }
 
   .login-showcase {
-    width: 80vw;
-    height: 40vh;
+    width: 90vw;
+    height: 30vh;
+  }
+  .login {
+    width: 90vw;
+    height: 60vh;
+  }
+  .login-form {
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1505px) {
+  .login-showcase {
+    width: 60vw;
+    height: 50vh;
+  }
+  .login {
+    width: 50vw;
+    height: 50vh;
   }
 }

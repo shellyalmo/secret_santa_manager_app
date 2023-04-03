@@ -13,34 +13,29 @@ const Login = () => {
           </label>
           <input
             type="text"
-            placeholder="Enter your full name"
+            placeholder="Enter full name"
             name="uname"
             required
           />
 
-          <label htmlFor="psw">
-            <b>Password: </b>
+          <label htmlFor="eml">
+            <b>Email: </b>
           </label>
-          <input
-            type="password"
-            placeholder="Enter Password"
-            name="psw"
-            required
-          />
+          <input type="email" placeholder="Enter email" name="eml" required />
           <div className="login-buttons">
             <button type="submit" className="login-btn">
               Login
             </button>
           </div>
 
-          <div className="login-buttons">
+          {/* <div className="login-buttons">
             <button type="button" className="signup-btn">
               Signup
             </button>
             <span>
               Forgot <a href="#">password?</a>
             </span>
-          </div>
+          </div> */}
         </form>
       </div>
     </div>
