@@ -1,17 +1,24 @@
 import "../styles/login.css";
 import { useState } from "react";
 import { secretSantaApi } from "../api/api";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const createUserApi = (form) => {
-  return secretSantaApi.post("/users", form);
+/**
+ *
+ * @param {{email: string, password}} form
+ * @returns
+ */
+const login = (form) => {
+  let config = {
+    data: form,
+  };
+  return secretSantaApi.post("/auth/login", config);
 };
 
-const redirect = location.search ? location.search.split("=")[1] : "/";
-
-const Login = ({ setNewUser }) => {
+const Login = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
-    name: "",
+    password: "",
     email: "",
   });
 
@@ -22,20 +29,6 @@ const Login = ({ setNewUser }) => {
         <h2>Welcome to Secret Santa App!</h2>
 
         <form method="post" className="login-form">
-          <label htmlFor="uname">
-            <b>Full Name: </b>
-          </label>
-          <input
-            type="text"
-            placeholder="Enter full name"
-            name="uname"
-            required
-            onChange={(e) => {
-              setForm({ ...form, name: e.target.value });
-            }}
-            value={form.name}
-          />
-
           <label htmlFor="eml">
             <b>Email: </b>
           </label>
@@ -49,20 +42,42 @@ const Login = ({ setNewUser }) => {
             value={form.email}
             required
           />
+          <label htmlFor="password">
+            <b>Password: </b>
+          </label>
+          <input
+            type="password"
+            placeholder="Hunter2"
+            name="password"
+            required
+            onChange={(e) => {
+              setForm({ ...form, password: e.target.value });
+            }}
+            value={form.password}
+          />
           <div className="login-buttons">
             <button
               type="button"
               onClick={async () => {
-                await createUserApi(form);
-                setNewUser(form.email);
+                try {
+                  const result = await login(form);
+                  if (result.status === 200) {
+                    navigate("/user");
+                  } else {
+                    alert("fail");
+                  }
+                } catch (error) {
+                  alert("fail");
+                }
               }}
               className="login-btn"
             >
-              <Link
+              Login
+              {/* <Link
                 to={redirect ? `/user/:id?redirect=${redirect}` : "/user/:id"}
               >
                 Login
-              </Link>
+              </Link> */}
             </button>
           </div>
 
