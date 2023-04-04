@@ -14,9 +14,17 @@ const fetcher = (url) =>
     ],
   });
 
+const getGiftIdeasFromChatGPT = (receiverDescription) => {
+  return Promise.resolve({
+    status: 200,
+    data: "bob would enjoy a jar of pickles",
+  });
+};
+
 const Gifts = () => {
   const [showConfetti, setShowConfetti] = useState(false);
-
+  const [giftIdeas, setGiftIdeas] = useState("");
+  const [receiverDescription, setReceiverDescription] = useState("");
   const { id } = useParams(); // get the ID from the URL
   const { data, error } = useSWR(`/user/game/${id}`, fetcher); // use SWR with the ID
   let gifts = [];
@@ -25,6 +33,19 @@ const Gifts = () => {
     gifts = data.gifts;
     receiver = data.receiver;
   }
+
+  const submitChatGPTRequest = async () => {
+    try {
+      const result = await getGiftIdeasFromChatGPT(receiverDescription);
+      if (result.status === 200) {
+        setGiftIdeas(result.data);
+      } else {
+        alert("fail");
+      }
+    } catch (error) {
+      alert("fail");
+    }
+  };
 
   const handleClick = () => {
     setShowConfetti(true);
@@ -47,8 +68,14 @@ const Gifts = () => {
           rows="10"
           cols="50"
           maxLength="500"
+          onChange={(e) => {
+            setReceiverDescription(e.target.value);
+          }}
+          value={receiverDescription}
         ></textarea>
-        <button>Submit</button>
+        <button type="button" onClick={submitChatGPTRequest}>
+          Submit
+        </button>
       </form>
       <div>
         <h3>Gift Ideas for {receiver}:</h3>
@@ -56,6 +83,7 @@ const Gifts = () => {
           {gifts.map((gift) => {
             return <li key={gift.name}>{gift.name}</li>;
           })}
+          {giftIdeas}
         </ul>
       </div>
       <button onClick={handleClick}>Notify Admin I gave my gift!</button>
