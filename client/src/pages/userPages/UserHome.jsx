@@ -24,7 +24,7 @@ const UserHome = () => {
   let games = [];
   console.log(data);
   // secret santa api get games
-  // todo: replace hard coded data, with map over arrays; variable that comes from js
+
   if (data) {
     games = data;
   }

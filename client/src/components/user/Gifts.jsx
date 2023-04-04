@@ -1,9 +1,26 @@
 import { useState } from "react";
 import Confetti from "react-confetti";
+import { useParams } from "react-router-dom";
+import useSWR from "swr";
+
+// fake fetcher
+const fetcher = (url) =>
+  Promise.resolve([
+    { name: "Fluffy Pyjamas", id: 1 },
+    { name: "Homemade Cookies", id: 2 },
+    { name: "DIY soap kit", id: 3 },
+  ]);
 
 const Gifts = () => {
   const receiver = "Bob";
   const [showConfetti, setShowConfetti] = useState(false);
+
+  const { id } = useParams(); // get the ID from the URL
+  const { data, error } = useSWR(`/user/game/${id}`, fetcher); // use SWR with the ID
+  let gifts = [];
+  if (data) {
+    gifts = data;
+  }
 
   const handleClick = () => {
     setShowConfetti(true);
@@ -32,9 +49,9 @@ const Gifts = () => {
       <div>
         <h3>Gift Ideas for {receiver}:</h3>
         <ul>
-          <li>Fluffy Pyjamas</li>
-          <li>Homemade Cookies</li>
-          <li>Cat Ears</li>
+          {gifts.map((gift) => {
+            return <li key={gift.name}>{gift.name}</li>;
+          })}
         </ul>
       </div>
       <button onClick={handleClick}>Notify Admin I gave my gift!</button>
