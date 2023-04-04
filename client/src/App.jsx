@@ -5,7 +5,7 @@ import { GameSettings, AdminCurrentGame } from "./pages/adminPages";
 import { UserHome, UserCurrentGame } from "./pages/userPages";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Invite from "./pages/Invite";
+
 import "./App.css";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/invite/game/:id" element={<Invite />} />
+
           <Route path="/admin" element={<SharedLayout />}>
             <Route path="gamesettings" element={<GameSettings />} />
             <Route path="game/:id" element={<AdminCurrentGame />} />
