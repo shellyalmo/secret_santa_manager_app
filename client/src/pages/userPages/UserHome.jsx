@@ -15,9 +15,9 @@ import { Link, useParams } from "react-router-dom";
 // fake fetcher
 const fetcher = (url) =>
   Promise.resolve([
-    { name: "bigso santa", id: 1 },
-    { name: "eid now", id: 2 },
-    { name: "purim schmurim", id: 3 },
+    { name: "bigso santa", id: 1, admin: false },
+    { name: "eid now", id: 2, admin: true },
+    { name: "purim schmurim", id: 3, admin: false },
   ]);
 
 const UserHome = () => {
@@ -37,12 +37,13 @@ const UserHome = () => {
         <div>
           <h1>Secret Santa Game App</h1>
           <h2>
-            Hello! Welcome to the easiest platform for participating in Secret
-            Santa games!
+            Hello! Welcome to the easiest platform for participating and
+            managing Secret Santa games!
           </h2>
           <h4>
             Here you can see who is your gift receiver and get customized gift
-            ideas.
+            ideas. If you are an admin, you can assign participants to couples
+            randomly and keep track of their progress in the game.
           </h4>
           <h4>
             Our App also supports themes for Purim's game ("Gamad-Anak") and for
@@ -50,9 +51,12 @@ const UserHome = () => {
           </h4>
         </div>
         <div className="games-list">
+          <Link to="/admin/gamesettings">
+            <button className="start-game-btn">Start a New Game</button>
+          </Link>
           <h4>Continue Existing Games:</h4>
           {games.map((game) => (
-            <Link to={"/user/game/" + id}>
+            <Link to={game.admin ? "/admin/game/" + id : "/user/game/" + id}>
               <button key={game.id}>{game.name}</button>
             </Link>
           ))}

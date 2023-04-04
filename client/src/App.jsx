@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import SharedLayout from "./components/layout/SharedLayout";
-import { AdminHome, GameSettings, AdminCurrentGame } from "./pages/adminPages";
+import { GameSettings, AdminCurrentGame } from "./pages/adminPages";
 import { UserHome, UserCurrentGame } from "./pages/userPages";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -15,7 +15,6 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/admin" element={<SharedLayout />}>
-            <Route index element={<AdminHome />} />
             <Route path="gamesettings" element={<GameSettings />} />
             <Route path="game/:id" element={<AdminCurrentGame />} />
           </Route>

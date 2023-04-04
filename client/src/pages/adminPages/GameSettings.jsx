@@ -1,5 +1,6 @@
 import "../../styles/secretSanta.css";
 import useSWR from "swr";
+import { Link, useParams } from "react-router-dom";
 
 // fake fetcher
 const fetcher = (url) =>
@@ -10,6 +11,8 @@ const fetcher = (url) =>
   ]);
 
 const GameSettings = () => {
+  const { id } = useParams(); // get the ID from the URL
+
   const { data, error } = useSWR("/admin/gamesettings", fetcher);
   // use SWR with the ID
   let themes = [];
@@ -30,7 +33,9 @@ const GameSettings = () => {
           );
         })}
       </div>
-      <button>Start Game</button>
+      <Link to={"/admin/game/" + id}>
+        <button>Start Game</button>
+      </Link>
       <div>
         <p>Share Game Link:</p>
         <p>http://gamelink.app</p>
