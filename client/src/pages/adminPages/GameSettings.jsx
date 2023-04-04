@@ -5,6 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const createGame = (theme) => {
+  if (theme === "") {
+    alert("Game must have a theme");
+    return Promise.reject();
+  }
   return Promise.resolve("/admin/game/85641614");
 };
 
@@ -42,8 +46,12 @@ const GameSettings = () => {
       <button
         onClick={async () => {
           //TODO: create game route
-          const url = await createGame(theme);
-          nav(url);
+          try {
+            const url = await createGame(theme);
+            nav(url);
+          } catch (error) {
+            console.error("");
+          }
         }}
       >
         Start Game
