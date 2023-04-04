@@ -5,21 +5,25 @@ import useSWR from "swr";
 
 // fake fetcher
 const fetcher = (url) =>
-  Promise.resolve([
-    { name: "Fluffy Pyjamas", id: 1 },
-    { name: "Homemade Cookies", id: 2 },
-    { name: "DIY soap kit", id: 3 },
-  ]);
+  Promise.resolve({
+    receiver: "Bob Shmob",
+    gifts: [
+      { name: "Fluffy Pyjamas", id: 1 },
+      { name: "Homemade Cookies", id: 2 },
+      { name: "DIY soap kit", id: 3 },
+    ],
+  });
 
 const Gifts = () => {
-  const receiver = "Bob";
   const [showConfetti, setShowConfetti] = useState(false);
 
   const { id } = useParams(); // get the ID from the URL
   const { data, error } = useSWR(`/user/game/${id}`, fetcher); // use SWR with the ID
   let gifts = [];
+  let receiver = "";
   if (data) {
-    gifts = data;
+    gifts = data.gifts;
+    receiver = data.receiver;
   }
 
   const handleClick = () => {
