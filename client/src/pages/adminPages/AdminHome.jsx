@@ -1,5 +1,6 @@
 import "../../styles/secretSanta.css";
 import useSWR from "swr";
+import { Link } from "react-router-dom";
 
 // fake fetcher
 const fetcher = (url) =>
@@ -35,7 +36,11 @@ const AdminHome = () => {
           </h4>
         </div>
         <div className="games-list">
-          <button className="start-game-btn">Start a New Game</button>
+          <Link to="/admin/gamesettings">
+            {" "}
+            <button className="start-game-btn">Start a New Game</button>
+          </Link>
+
           <h4>Continue Existing Games:</h4>
           {games.map((game) => (
             <button key={game.id}>{game.name}</button>

@@ -1,6 +1,7 @@
 import "../../styles/secretSanta.css";
 import { secretSantaApi } from "../../api/api";
 import useSWR from "swr";
+import { Link, useParams } from "react-router-dom";
 
 // real fetcher
 // const fetcher = (url) =>
@@ -20,6 +21,8 @@ const fetcher = (url) =>
   ]);
 
 const UserHome = () => {
+  const { id } = useParams(); // get the ID from the URL
+
   const { data, error } = useSWR("/user", fetcher);
   let games = [];
   console.log(data);
@@ -49,7 +52,9 @@ const UserHome = () => {
         <div className="games-list">
           <h4>Continue Existing Games:</h4>
           {games.map((game) => (
-            <button key={game.id}>{game.name}</button>
+            <Link to={"/user/game/" + id}>
+              <button key={game.id}>{game.name}</button>
+            </Link>
           ))}
         </div>
       </div>
