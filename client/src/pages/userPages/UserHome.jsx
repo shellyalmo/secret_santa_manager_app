@@ -1,7 +1,7 @@
 import "../../styles/secretSanta.css";
-import { secretSantaApi } from "../../api/api";
+import { useState } from "react";
 import useSWR from "swr";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 // real fetcher
 // const fetcher = (url) =>
@@ -20,8 +20,15 @@ const fetcher = (url) =>
     { name: "purim schmurim", id: 3, admin: false },
   ]);
 
+const joinGameRequest = (gameId) => {
+  return Promise.resolve({ status: 200 });
+};
+
 const UserHome = () => {
+  const [gameId, setGameId] = useState("");
   const { id } = useParams(); // get the ID from the URL
+
+  const nav = useNavigate();
 
   const { data, error } = useSWR("/user", fetcher);
   let games = [];
@@ -31,6 +38,20 @@ const UserHome = () => {
   if (data) {
     games = data;
   }
+
+  const joinClickHandler = async () => {
+    try {
+      const result = await joinGameRequest(gameId);
+      if (result.status === 200) {
+        nav(`/user/game/${gameId}`);
+      } else {
+        alert("fail");
+      }
+    } catch (error) {
+      alert("fail");
+    }
+  };
+
   return (
     <div className="home-background">
       <div className="home-content">
@@ -51,9 +72,22 @@ const UserHome = () => {
           </h4>
         </div>
         <div className="games-list">
-          <Link to="/admin/gamesettings">
-            <button className="start-game-btn">Start a New Game</button>
-          </Link>
+          <section>
+            <form>
+              <label htmlFor="gameId">Enter game ID: </label>
+              <input
+                type="text"
+                name="gameId"
+                onChange={(e) => {
+                  setGameId(e.target.value);
+                }}
+                value={gameId}
+              />
+              <button type="button" onClick={joinClickHandler}>
+                Join Game
+              </button>
+            </form>
+          </section>
           <h4>Continue Existing Games:</h4>
           {games.map((game) => (
             <Link to={game.admin ? "/admin/game/" + id : "/user/game/" + id}>
@@ -61,6 +95,9 @@ const UserHome = () => {
             </Link>
           ))}
         </div>
+        <Link to="/admin/gamesettings">
+          <button className="start-game-btn">Start a New Game</button>
+        </Link>
       </div>
     </div>
   );

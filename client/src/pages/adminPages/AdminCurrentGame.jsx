@@ -50,6 +50,17 @@ const CurrentGame = () => {
     <>
       <div>
         <h1>Current Game</h1>
+
+        <section>
+          <h3>Instructions to share with your participants:</h3>
+          <ol>
+            <li>
+              Go to: <a href="#">login to game</a>
+            </li>
+            <li>After login, type in the game id:{id}</li>
+          </ol>
+          <button type="">Click to copy</button>
+        </section>
         <h3>List of Participants:</h3>
         <table>
           <thead>

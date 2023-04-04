@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
  * @param {{email: string, password}} form
  * @returns
  */
-const login = (form) => {
+const loginRequest = (form) => {
   let config = {
     data: form,
   };
@@ -21,6 +21,20 @@ const Login = () => {
     password: "",
     email: "",
   });
+
+  const loginClickHandler = async () => {
+    try {
+      const result = await loginRequest(form);
+      if (result.status === 200) {
+        localStorage.setItem("token", result.data.token);
+        navigate("/user");
+      } else {
+        alert("fail");
+      }
+    } catch (error) {
+      alert("fail");
+    }
+  };
 
   return (
     <div className="login-screen">
@@ -58,19 +72,7 @@ const Login = () => {
           <div className="login-buttons">
             <button
               type="button"
-              onClick={async () => {
-                try {
-                  const result = await login(form);
-                  if (result.status === 200) {
-                    localStorage.setItem("token", result.data.token);
-                    navigate("/user");
-                  } else {
-                    alert("fail");
-                  }
-                } catch (error) {
-                  alert("fail");
-                }
-              }}
+              onClick={loginClickHandler}
               className="login-btn"
             >
               Login
