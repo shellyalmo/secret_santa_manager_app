@@ -38,7 +38,9 @@ const GameSettings = () => {
       </Link>
       <div>
         <p>Share Game Link:</p>
-        <p>http://gamelink.app</p>
+        <Link to={"/invite/game/" + id}>
+          <button>http://game/24dg&5456h8^*v</button>
+        </Link>
       </div>
     </>
   );
