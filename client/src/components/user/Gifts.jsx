@@ -5,17 +5,6 @@ import { useParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 useAxios;
 
-// fake fetcher
-const fetcher = (url) =>
-  Promise.resolve({
-    receiver: "Bob Shmob",
-    gifts: [
-      { name: "Fluffy Pyjamas", id: 1 },
-      { name: "Homemade Cookies", id: 2 },
-      { name: "DIY soap kit", id: 3 },
-    ],
-  });
-
 const getGiftIdeasFromChatGPT = (receiverDescription) => {
   return Promise.resolve({
     status: 200,
