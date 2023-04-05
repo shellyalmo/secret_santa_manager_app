@@ -1,47 +1,13 @@
 import "../../styles/secretSanta.css";
 import { useParams } from "react-router-dom";
-import useSWR from "swr";
-
-// fake fetcher
-const fetcher = (url) =>
-  Promise.resolve([
-    {
-      fullName: "Alfreds Futterkiste",
-      email: "alfred@gmail.com",
-      receiver: "Michelle Anderson",
-      finished: true,
-      id: 1,
-    },
-    {
-      fullName: "Maria Anders",
-      email: "maria@gmail.com",
-      receiver: "Josh Yoahueburg",
-      finished: false,
-      id: 2,
-    },
-    {
-      fullName: "Michelle Anderson",
-      email: "michelle@gmail.com",
-      receiver: "Alfreds Futterkiste",
-      finished: false,
-      id: 3,
-    },
-    {
-      fullName: "Josh Yoahueburg",
-      email: "josh@gmail.com",
-      receiver: "Maria Anders",
-      finished: true,
-      id: 4,
-    },
-  ]);
+import useAxios from "../../hooks/useAxios";
+useAxios;
 
 const CurrentGame = () => {
   const { id } = useParams();
 
-  const { data, error } = useSWR(`/admin/game/${id}`, fetcher);
+  const { data, error } = useAxios(`/admin/game/${id}`);
   let participants = [];
-
-  // secret santa api get games
 
   if (data) {
     participants = data;
