@@ -1,17 +1,27 @@
 import "../../styles/secretSanta.css";
 import { useParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
-useAxios;
+import { useState } from "react";
 
 const CurrentGame = () => {
+  const [shuffleCount, setShuffleCount] = useState(0);
   const { id } = useParams();
 
-  const { data, error } = useAxios(`/admin/game/${id}`);
+  const { data, error } = useAxios(
+    `/admin/game/${id}?assignedPairs=${shuffleCount}`
+  );
   let participants = [];
 
   if (data) {
     participants = data;
   }
+  const assignPairsHandler = () => {
+    // update the participants table
+    Promise.resolve(); //instead of axios put
+    //refetch the data because the url is the dependency and it changed
+    setShuffleCount((prev) => prev + 1);
+  };
+
   return (
     <>
       <div>
@@ -28,25 +38,6 @@ const CurrentGame = () => {
           <button type="">Click to copy</button>
         </section>
         <h3>List of Participants:</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Full Name</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {participants.map((participant) => {
-              return (
-                <tr key={participant.id}>
-                  <td>{participant.fullName}</td>
-                  <td>{participant.email}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <button>Assign to Couples</button>
         <table>
           <thead>
             <tr>
@@ -69,6 +60,7 @@ const CurrentGame = () => {
             })}
           </tbody>
         </table>
+        <button onClick={assignPairsHandler}>Assign to Couples</button>
       </div>
     </>
   );
