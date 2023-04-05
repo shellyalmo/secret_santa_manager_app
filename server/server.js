@@ -18,6 +18,7 @@ import errorHandler from "./middleware/errorHandler.js";
 
 import auth from "./routes/authRoutes.js";
 import users from "./routes/userRoutes.js";
+import userCurrentGameRoutes from "./routes/userCurrentGameRoutes.js";
 
 import { fileURLToPath } from "url";
 
@@ -84,6 +85,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/users", users);
+app.use("/api/v1/user", userCurrentGameRoutes);
 
 app.use(errorHandler);
 

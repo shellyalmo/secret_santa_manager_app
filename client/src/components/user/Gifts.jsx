@@ -1,7 +1,9 @@
 import { useState } from "react";
 import Confetti from "react-confetti";
 import { useParams } from "react-router-dom";
-import useSWR from "swr";
+
+import useAxios from "../../hooks/useAxios";
+useAxios;
 
 // fake fetcher
 const fetcher = (url) =>
@@ -26,7 +28,8 @@ const Gifts = () => {
   const [giftIdeas, setGiftIdeas] = useState("");
   const [receiverDescription, setReceiverDescription] = useState("");
   const { id } = useParams(); // get the ID from the URL
-  const { data, error } = useSWR(`/user/game/${id}`, fetcher); // use SWR with the ID
+  const { data, error } = useAxios(`/user/game/${id}`);
+
   let gifts = [];
   let receiver = "";
   if (data) {
