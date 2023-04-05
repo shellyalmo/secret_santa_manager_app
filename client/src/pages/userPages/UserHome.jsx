@@ -10,7 +10,6 @@ const joinGameRequest = (gameId) => {
 
 const UserHome = () => {
   const [gameId, setGameId] = useState("");
-  const { id } = useParams(); // get the ID from the URL
 
   const nav = useNavigate();
 
@@ -25,11 +24,13 @@ const UserHome = () => {
 
   const joinClickHandler = async () => {
     try {
-      const result = await joinGameRequest(gameId);
-      if (result.status === 200) {
-        nav(`/user/game/${gameId}`);
-      } else {
-        alert("fail");
+      if (gameId) {
+        const result = await joinGameRequest(gameId);
+        if (result.status === 200) {
+          nav(`/user/game/${gameId}`);
+        } else {
+          alert("fail");
+        }
       }
     } catch (error) {
       alert("fail");
@@ -66,15 +67,20 @@ const UserHome = () => {
                   setGameId(e.target.value);
                 }}
                 value={gameId}
+                required
               />
-              <button type="button" onClick={joinClickHandler}>
+              <button type="submit" onClick={joinClickHandler}>
                 Join Game
               </button>
             </form>
           </section>
           <h4>Continue Existing Games:</h4>
           {games.map((game) => (
-            <Link to={game.admin ? "/admin/game/" + id : "/user/game/" + id}>
+            <Link
+              to={
+                game.admin ? "/admin/game/" + game.id : "/user/game/" + game.id
+              }
+            >
               <button key={game.name} className={`${game.theme}-btn`}>
                 {game.name}
               </button>
