@@ -20,6 +20,8 @@ import auth from "./routes/authRoutes.js";
 import users from "./routes/userRoutes.js";
 import userCurrentGameRoutes from "./routes/userCurrentGameRoutes.js";
 import userHomeRoutes from "./routes/userHomeRoutes.js";
+import gameRoutes from "./routes/gameRoutes.js";
+
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -86,6 +88,7 @@ app.get("/", (req, res) => {
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/users", users);
 app.use("/api/v1/user", userCurrentGameRoutes, userHomeRoutes);
+app.use("/api/v1/admin", gameRoutes);
 
 app.use(errorHandler);
 

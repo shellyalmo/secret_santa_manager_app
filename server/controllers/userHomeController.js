@@ -6,8 +6,8 @@ import asyncHandler from "../middleware/asyncHandler.js";
 // @access  Private/User
 export const getGamesPerUser = asyncHandler(async (req, res, next) => {
   res.status(200).json([
-    { name: "bigso santa", theme: "christmas", admin: false },
-    { name: "eid now", theme: "eid", admin: true },
-    { name: "purim schmurim", theme: "purim", admin: false },
+    { name: "bigso santa", theme: "christmas", admin: false, id: 1 },
+    { name: "eid now", theme: "eid", admin: true, id: 2 },
+    { name: "purim schmurim", theme: "purim", admin: false, id: 3 },
   ]);
 });
