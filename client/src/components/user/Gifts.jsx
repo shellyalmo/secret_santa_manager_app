@@ -3,7 +3,6 @@ import Confetti from "react-confetti";
 import { useParams } from "react-router-dom";
 
 import useAxios from "../../hooks/useAxios";
-useAxios;
 
 const getGiftIdeasFromChatGPT = (receiverDescription) => {
   return Promise.resolve({

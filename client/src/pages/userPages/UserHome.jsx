@@ -90,6 +90,9 @@ const UserHome = () => {
         <Link to="/admin/gamesettings">
           <button className="start-game-btn">Start a New Game</button>
         </Link>
+        <Link to="/admin/gamesettings">
+          <button className="start-game-btn">Start a New Game</button>
+        </Link>
       </div>
     </div>
   );
