@@ -18,6 +18,7 @@ const UserSchema = new mongoose.Schema(
         "Please add a valid email",
       ],
     },
+    // todo: delete role?
     role: {
       type: String,
       enum: ["user"],

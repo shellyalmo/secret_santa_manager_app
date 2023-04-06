@@ -6,7 +6,11 @@ import Game from "../models/Game.js";
 // @route   POST /api/v1/admin/gamesettings
 // @access  Private/Admin
 export const createGame = asyncHandler(async (req, res, next) => {
-  const game = await Game.create(req.body);
+  const game = await Game.create({
+    theme: req.body.theme,
+    admin: req.user.id,
+    users: [req.user.id],
+  });
 
   res.status(201).json({
     success: true,

@@ -9,12 +9,12 @@ import {
 
 import User from "../models/User.js";
 
-// import { protect, authorize } from "./../middleware/authMiddleware.js";
+import { protect, authorize } from "./../middleware/authMiddleware.js";
 import advancedResults from "../middleware/advancedResults.js";
 
 const router = express.Router({ mergeParams: true });
 
-// router.use(protect);
+router.use(protect);
 // router.use(authorize('admin'));
 
 router.route("/").get(advancedResults(User), getUsers).post(createUser);
