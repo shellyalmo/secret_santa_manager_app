@@ -61,7 +61,9 @@ const CurrentGame = () => {
             })}
           </tbody>
         </table>
-        <button onClick={assignPairsHandler}>Assign to Pairs</button>
+        <button onClick={assignPairsHandler}>Shuffle Participants!</button>
+        {/* todo */}
+        <button type="">Start Game!</button>
       </div>
     </>
   );

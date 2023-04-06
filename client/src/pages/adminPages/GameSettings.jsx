@@ -10,13 +10,14 @@ const createGame = (theme) => {
     alert("Game must have a theme");
     return Promise.reject();
   }
-  return secretSantaApi.post("/admin/gamesettings");
+  return secretSantaApi.post("/admin/gamesettings", { theme });
 };
 
 const GameSettings = () => {
   const nav = useNavigate();
   const [theme, setTheme] = useState("");
 
+  // themes are part of frontend code, not DB
   const themes = [
     { name: "Christmas", className: "christmas", id: 1 },
     { name: "Purim", className: "purim", id: 2 },
@@ -54,7 +55,7 @@ const GameSettings = () => {
           }
         }}
       >
-        Start Game
+        Create a New Game
       </button>
     </>
   );

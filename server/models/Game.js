@@ -4,10 +4,10 @@ const GameSchema = new mongoose.Schema(
   {
     theme: {
       type: String,
-      enum: ["christmas", "purim", "eid"],
-      default: "christmas",
+      enum: ["Christmas", "Purim", "Eid Al Fitr"],
+      default: "Christmas",
     },
-    isActive: {
+    isStarted: {
       type: Boolean,
       default: false,
     },
@@ -23,6 +23,18 @@ const GameSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+      },
+    ],
+    assignments: [
+      {
+        giver: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        receiver: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
       },
     ],
   },
