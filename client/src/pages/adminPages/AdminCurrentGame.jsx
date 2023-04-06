@@ -13,7 +13,7 @@ const CurrentGame = () => {
   let participants = [];
 
   if (data) {
-    participants = data;
+    participants = data.data;
   }
   const assignPairsHandler = () => {
     // update the participants table
@@ -60,7 +60,7 @@ const CurrentGame = () => {
             })}
           </tbody>
         </table>
-        <button onClick={assignPairsHandler}>Assign to Couples</button>
+        <button onClick={assignPairsHandler}>Assign to Pairs</button>
       </div>
     </>
   );
