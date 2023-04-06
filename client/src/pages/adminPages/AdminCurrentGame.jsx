@@ -2,6 +2,7 @@ import "../../styles/secretSanta.css";
 import { useParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import { useState } from "react";
+import { secretSantaApi } from "../../api/api";
 
 const CurrentGame = () => {
   const [shuffleCount, setShuffleCount] = useState(0);
@@ -13,11 +14,11 @@ const CurrentGame = () => {
   let participants = [];
 
   if (data) {
-    participants = data;
+    participants = data.data;
   }
-  const assignPairsHandler = () => {
+  const assignPairsHandler = async () => {
     // update the participants table
-    Promise.resolve(); //instead of axios put
+    await secretSantaApi.put(`/admin/game/${id}`);
     //refetch the data because the url is the dependency and it changed
     setShuffleCount((prev) => prev + 1);
   };
@@ -60,7 +61,7 @@ const CurrentGame = () => {
             })}
           </tbody>
         </table>
-        <button onClick={assignPairsHandler}>Assign to Couples</button>
+        <button onClick={assignPairsHandler}>Assign to Pairs</button>
       </div>
     </>
   );
