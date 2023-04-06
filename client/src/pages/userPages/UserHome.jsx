@@ -1,11 +1,12 @@
 import "../../styles/secretSanta.css";
 import { useState } from "react";
 import useAxios from "../../hooks/useAxios";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/secretSanta.css";
+import { secretSantaApi } from "../../api/api.js";
 
 const joinGameRequest = (gameId) => {
-  return Promise.resolve({ status: 200 });
+  return secretSantaApi.put(`/user`, { gameId });
 };
 
 const UserHome = () => {
@@ -15,18 +16,17 @@ const UserHome = () => {
 
   const { data, error } = useAxios("/user");
   let games = [];
-  console.log(data);
-  // secret santa api get games
 
   if (data) {
     games = data;
   }
 
-  const joinClickHandler = async () => {
+  const joinClickHandler = async (e) => {
     try {
+      e.preventDefault();
       if (gameId) {
         const result = await joinGameRequest(gameId);
-        if (result.status === 200) {
+        if (result.status === 201) {
           nav(`/user/game/${gameId}`);
         } else {
           alert("fail");
@@ -77,19 +77,17 @@ const UserHome = () => {
           <h4>Continue Existing Games:</h4>
           {games.map((game) => (
             <Link
+              key={game.id}
               to={
                 game.admin ? "/admin/game/" + game.id : "/user/game/" + game.id
               }
             >
-              <button key={game.name} className={`${game.theme}-btn`}>
+              <button key={game.id} className={`${game.theme}-btn`}>
                 {game.name}
               </button>
             </Link>
           ))}
         </div>
-        <Link to="/admin/gamesettings">
-          <button className="start-game-btn">Start a New Game</button>
-        </Link>
         <Link to="/admin/gamesettings">
           <button className="start-game-btn">Start a New Game</button>
         </Link>
