@@ -34,6 +34,7 @@ const UserSchema = new mongoose.Schema(
         ref: "Game",
       },
     ],
+
     resetPasswordToken: String,
     resetPasswordExpire: Date,
     createdAt: {

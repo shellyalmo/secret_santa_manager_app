@@ -3,13 +3,14 @@ import "../../styles/secretSanta.css";
 import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
+import { secretSantaApi } from "../../api/api";
 
 const createGame = (theme) => {
   if (theme === "") {
     alert("Game must have a theme");
     return Promise.reject();
   }
-  return Promise.resolve("/admin/game/85641614");
+  return secretSantaApi.post("/admin/gamesettings");
 };
 
 const GameSettings = () => {
@@ -45,10 +46,9 @@ const GameSettings = () => {
 
       <button
         onClick={async () => {
-          //TODO: create game route
           try {
-            const url = await createGame(theme);
-            nav(url);
+            const res = await createGame(theme);
+            nav(res.data.url);
           } catch (error) {
             console.error("");
           }

@@ -1,18 +1,8 @@
 import { useState } from "react";
 import Confetti from "react-confetti";
 import { useParams } from "react-router-dom";
-import useSWR from "swr";
 
-// fake fetcher
-const fetcher = (url) =>
-  Promise.resolve({
-    receiver: "Bob Shmob",
-    gifts: [
-      { name: "Fluffy Pyjamas", id: 1 },
-      { name: "Homemade Cookies", id: 2 },
-      { name: "DIY soap kit", id: 3 },
-    ],
-  });
+import useAxios from "../../hooks/useAxios";
 
 const getGiftIdeasFromChatGPT = (receiverDescription) => {
   return Promise.resolve({
@@ -26,7 +16,8 @@ const Gifts = () => {
   const [giftIdeas, setGiftIdeas] = useState("");
   const [receiverDescription, setReceiverDescription] = useState("");
   const { id } = useParams(); // get the ID from the URL
-  const { data, error } = useSWR(`/user/game/${id}`, fetcher); // use SWR with the ID
+  const { data, error } = useAxios(`/user/game/${id}`);
+
   let gifts = [];
   let receiver = "";
   if (data) {

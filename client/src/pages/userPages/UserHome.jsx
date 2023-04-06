@@ -1,24 +1,8 @@
 import "../../styles/secretSanta.css";
 import { useState } from "react";
-import useSWR from "swr";
+import useAxios from "../../hooks/useAxios";
 import { Link, useParams, useNavigate } from "react-router-dom";
-
-// real fetcher
-// const fetcher = (url) =>
-//   secretSantaApi
-//     .get(url, {
-//       headers: { Authorization: "Bearer: " + localStorage.getItem("token") },
-//     })
-//     .then((res) => res.data);
-// const { data, error } = useSWR("/auth/current-user", fetcher);
-
-// fake fetcher
-const fetcher = (url) =>
-  Promise.resolve([
-    { name: "bigso santa", id: 1, admin: false },
-    { name: "eid now", id: 2, admin: true },
-    { name: "purim schmurim", id: 3, admin: false },
-  ]);
+import "../../styles/secretSanta.css";
 
 const joinGameRequest = (gameId) => {
   return Promise.resolve({ status: 200 });
@@ -26,11 +10,10 @@ const joinGameRequest = (gameId) => {
 
 const UserHome = () => {
   const [gameId, setGameId] = useState("");
-  const { id } = useParams(); // get the ID from the URL
 
   const nav = useNavigate();
 
-  const { data, error } = useSWR("/user", fetcher);
+  const { data, error } = useAxios("/user");
   let games = [];
   console.log(data);
   // secret santa api get games
@@ -41,11 +24,13 @@ const UserHome = () => {
 
   const joinClickHandler = async () => {
     try {
-      const result = await joinGameRequest(gameId);
-      if (result.status === 200) {
-        nav(`/user/game/${gameId}`);
-      } else {
-        alert("fail");
+      if (gameId) {
+        const result = await joinGameRequest(gameId);
+        if (result.status === 200) {
+          nav(`/user/game/${gameId}`);
+        } else {
+          alert("fail");
+        }
       }
     } catch (error) {
       alert("fail");
@@ -82,19 +67,29 @@ const UserHome = () => {
                   setGameId(e.target.value);
                 }}
                 value={gameId}
+                required
               />
-              <button type="button" onClick={joinClickHandler}>
+              <button type="submit" onClick={joinClickHandler}>
                 Join Game
               </button>
             </form>
           </section>
           <h4>Continue Existing Games:</h4>
           {games.map((game) => (
-            <Link to={game.admin ? "/admin/game/" + id : "/user/game/" + id}>
-              <button key={game.id}>{game.name}</button>
+            <Link
+              to={
+                game.admin ? "/admin/game/" + game.id : "/user/game/" + game.id
+              }
+            >
+              <button key={game.name} className={`${game.theme}-btn`}>
+                {game.name}
+              </button>
             </Link>
           ))}
         </div>
+        <Link to="/admin/gamesettings">
+          <button className="start-game-btn">Start a New Game</button>
+        </Link>
         <Link to="/admin/gamesettings">
           <button className="start-game-btn">Start a New Game</button>
         </Link>
