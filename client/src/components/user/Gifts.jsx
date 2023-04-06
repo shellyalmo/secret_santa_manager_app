@@ -3,12 +3,10 @@ import Confetti from "react-confetti";
 import { useParams } from "react-router-dom";
 
 import useAxios from "../../hooks/useAxios";
+import { secretSantaApi } from "../../api/api.js";
 
-const getGiftIdeasFromChatGPT = (receiverDescription) => {
-  return Promise.resolve({
-    status: 200,
-    data: "bob would enjoy a jar of pickles",
-  });
+const getGiftIdeasFromChatGPT = (receiverDescription, id) => {
+  return secretSantaApi.post(`/user/game/${id}`);
 };
 
 const Gifts = () => {
@@ -27,9 +25,9 @@ const Gifts = () => {
 
   const submitChatGPTRequest = async () => {
     try {
-      const result = await getGiftIdeasFromChatGPT(receiverDescription);
+      const result = await getGiftIdeasFromChatGPT(receiverDescription, id);
       if (result.status === 200) {
-        setGiftIdeas(result.data);
+        setGiftIdeas(result.data.data);
       } else {
         alert("fail");
       }

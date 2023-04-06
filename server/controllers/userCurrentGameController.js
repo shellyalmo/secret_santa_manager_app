@@ -14,3 +14,13 @@ export const getCurrentGamePerUser = asyncHandler(async (req, res, next) => {
     ],
   });
 });
+
+// @desc    post gift ideas from ChatGPT
+// @route   POST /api/v1//user/game/:id
+// @access  Private/User
+export const getGiftIdeasFromChatGPT = asyncHandler(async (req, res, next) => {
+  res.status(200).json({
+    data: "bob would enjoy a jar of pickles",
+    success: true,
+  });
+});
