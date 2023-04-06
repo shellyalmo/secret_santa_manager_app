@@ -1,6 +1,7 @@
 import ErrorResponse from "../utils/errorResponse.js";
 import asyncHandler from "../middleware/asyncHandler.js";
 
+import _ from "lodash-es";
 let participants = [
   {
     fullName: "Alfreds Futterkiste",
@@ -46,6 +47,16 @@ export const getCurrentUsersPerGame = asyncHandler(async (req, res, next) => {
 // @route   PUT /api/v1/admin/game/:id
 // @access  Private/Admin
 export const assignPairs = asyncHandler(async (req, res, next) => {
+  participants = _.shuffle(participants);
+
+  participants.forEach((participant, i) => {
+    if (i === participants.length - 1) {
+      participant.receiver = participants[0].fullName;
+    } else {
+      participant.receiver = participants[i + 1].fullName;
+    }
+  });
+  participants.sort((a, b) => a.fullName.localeCompare(b.fullName));
   res.status(200).json({
     success: true,
   });
