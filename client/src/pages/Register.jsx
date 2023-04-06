@@ -56,6 +56,7 @@ const Login = () => {
             name="eml"
             value={form.email}
             required
+            autoComplete="off"
           />
           <label htmlFor="password">
             <b>Password: </b>
@@ -69,6 +70,7 @@ const Login = () => {
               setForm({ ...form, password: e.target.value });
             }}
             value={form.password}
+            autoComplete="off"
           />
           <div className="login-buttons">
             <button
