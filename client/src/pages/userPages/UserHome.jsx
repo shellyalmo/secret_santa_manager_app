@@ -14,11 +14,12 @@ const UserHome = () => {
 
   const nav = useNavigate();
 
-  const { data, error } = useAxios("/user");
+  const { data: userGames, error } = useAxios("/user");
+  const { data: currentUser } = useAxios("/auth/current-user");
   let games = [];
 
-  if (data) {
-    games = data;
+  if (userGames) {
+    games = userGames;
   }
 
   const joinClickHandler = async (e) => {
@@ -43,8 +44,8 @@ const UserHome = () => {
         <div>
           <h1>Secret Santa Game App</h1>
           <h2>
-            Hello! Welcome to the easiest platform for participating and
-            managing Secret Santa games!
+            Hello {currentUser?.data.name}! Welcome to the easiest platform for
+            participating and managing Secret Santa games!
           </h2>
           <h4>
             Here you can see who is your gift receiver and get customized gift
