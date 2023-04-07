@@ -1,16 +1,14 @@
 import ErrorResponse from "../utils/errorResponse.js";
 import asyncHandler from "../middleware/asyncHandler.js";
 import Game from "../models/Game.js";
+import User from "../models/User.js";
 
 // @desc    Get all games per user
 // @route   GET /api/v1/user
 // @access  Private/User
 export const getGamesPerUser = asyncHandler(async (req, res, next) => {
-  res.status(200).json([
-    { name: "bigso santa", theme: "christmas", admin: false, id: 1 },
-    { name: "eid now", theme: "eid", admin: true, id: 2 },
-    { name: "purim schmurim", theme: "purim", admin: false, id: 3 },
-  ]);
+  const user = await User.findById(req.user.id);
+  res.status(200).json(user.games);
 });
 
 // @desc    join a game

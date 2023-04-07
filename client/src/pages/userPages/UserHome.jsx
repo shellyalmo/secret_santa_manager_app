@@ -76,18 +76,25 @@ const UserHome = () => {
             </form>
           </section>
           <h4>Continue Existing Games:</h4>
-          {games.map((game) => (
-            <Link
-              key={game.id}
-              to={
-                game.admin ? "/admin/game/" + game.id : "/user/game/" + game.id
-              }
-            >
-              <button key={game.id} className={`${game.theme}-btn`}>
-                {game.name}
-              </button>
-            </Link>
-          ))}
+
+          {games.length > 0 ? (
+            games.map((game) => (
+              <Link
+                key={game.id}
+                to={
+                  game.admin
+                    ? "/admin/game/" + game.id
+                    : "/user/game/" + game.id
+                }
+              >
+                <button key={game.id} className={`${game.theme}-btn`}>
+                  {game.name}
+                </button>
+              </Link>
+            ))
+          ) : (
+            <p>no existing games were found.</p>
+          )}
         </div>
         <Link to="/admin/gamesettings">
           <button className="start-game-btn">Start a New Game</button>
