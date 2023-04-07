@@ -1,6 +1,7 @@
 import ErrorResponse from "../utils/errorResponse.js";
 import asyncHandler from "../middleware/asyncHandler.js";
 import Game from "../models/Game.js";
+import User from "../models/User.js";
 
 // @desc    CREATE new game
 // @route   POST /api/v1/admin/gamesettings
@@ -10,6 +11,9 @@ export const createGame = asyncHandler(async (req, res, next) => {
     theme: req.body.theme,
     admin: req.user.id,
     users: [req.user.id],
+  });
+  await User.findByIdAndUpdate(req.user.id, {
+    $push: { games: game.id },
   });
 
   res.status(201).json({
