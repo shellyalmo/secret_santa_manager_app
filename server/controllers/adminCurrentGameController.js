@@ -1,35 +1,16 @@
 import ErrorResponse from "../utils/errorResponse.js";
 import asyncHandler from "../middleware/asyncHandler.js";
-
+import Game from "../models/Game.js";
+import User from "../models/User.js";
 import _ from "lodash-es";
+
 let participants = [
   {
-    fullName: "Alfreds Futterkiste",
-    email: "alfred@gmail.com",
-    receiver: "",
-    finished: true,
-    id: 1,
-  },
-  {
-    fullName: "Maria Anders",
-    email: "maria@gmail.com",
+    fullName: "",
+    email: "",
     receiver: "",
     finished: false,
-    id: 2,
-  },
-  {
-    fullName: "Michelle Anderson",
-    email: "michelle@gmail.com",
-    receiver: "",
-    finished: false,
-    id: 3,
-  },
-  {
-    fullName: "Josh Yoahueburg",
-    email: "josh@gmail.com",
-    receiver: "",
-    finished: true,
-    id: 4,
+    id: "",
   },
 ];
 
@@ -37,10 +18,29 @@ let participants = [
 // @route   GET /api/v1/admin/game/:id
 // @access  Private/Admin
 export const getCurrentUsersPerGame = asyncHandler(async (req, res, next) => {
+  const game = await Game.findById(req.params.id);
+
+  const currentUsersForGame = await Promise.all(
+    game.users.map(async (id) => {
+      const user = await User.findById(id);
+      return {
+        fullName: user.name,
+        email: user.email,
+        receiver: user.receiver,
+        finished: false,
+        id: user.id,
+      };
+    })
+  );
   res.status(200).json({
     success: true,
-    data: participants,
+    data: currentUsersForGame,
   });
+
+  // res.status(200).json({
+  //   success: true,
+  //   data: participants,
+  // });
 });
 
 // @desc    Update users per game

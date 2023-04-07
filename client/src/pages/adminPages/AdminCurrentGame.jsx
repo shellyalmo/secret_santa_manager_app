@@ -52,10 +52,10 @@ const CurrentGame = () => {
             {participants.map((participant) => {
               return (
                 <tr key={participant.id}>
-                  <td>{participant.fullName}</td>
-                  <td>{participant.email}</td>
-                  <td>{participant.receiver}</td>
-                  <td>{participant.finished.toString()}</td>
+                  <td>{participant?.fullName}</td>
+                  <td>{participant?.email}</td>
+                  <td>{participant?.receiver}</td>
+                  <td>{participant?.finished?.toString()}</td>
                 </tr>
               );
             })}
