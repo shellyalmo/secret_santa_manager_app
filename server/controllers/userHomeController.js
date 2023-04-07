@@ -17,8 +17,8 @@ export const getGamesPerUser = asyncHandler(async (req, res, next) => {
 // @route   PUT /api/v1/user
 // @access  Private/User
 export const joinGame = asyncHandler(async (req, res, next) => {
-  await Game.findOneAndUpdate(
-    { id: req.body.gameId },
+  await Game.findByIdAndUpdate(
+    req.body.gameId,
     { $push: { users: req.user.id } }
     // push isn't working for a different user than the admin
   );
