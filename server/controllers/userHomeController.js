@@ -8,7 +8,13 @@ import User from "../models/User.js";
 // @access  Private/User
 export const getGamesPerUser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
-  res.status(200).json(user.games);
+  const gamesOfUser = await Promise.all(
+    user.games.map(async (game) => {
+      const singleGame = await Game.findById(game);
+      return singleGame;
+    })
+  );
+  res.status(200).json(gamesOfUser);
 });
 
 // @desc    join a game

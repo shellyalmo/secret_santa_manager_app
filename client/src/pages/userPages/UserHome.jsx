@@ -78,20 +78,29 @@ const UserHome = () => {
           <h4>Continue Existing Games:</h4>
 
           {games.length > 0 ? (
-            games.map((game) => (
-              <Link
-                key={game.id}
-                to={
-                  game.admin
-                    ? "/admin/game/" + game.id
-                    : "/user/game/" + game.id
-                }
-              >
-                <button key={game.id} className={`${game.theme}-btn`}>
-                  {game.name}
-                </button>
-              </Link>
-            ))
+            games.map((game) => {
+              const isAdmin = game?.admin === currentUser?.data?.id;
+              return (
+                <>
+                  <Link key={game.id} to={"/user/game/" + game.id}>
+                    <button
+                      key={game.id + "btn"}
+                      className={`${game.theme.toLowerCase()}-btn`}
+                    >
+                      {game.theme}, created at:{" "}
+                      {new Date(game.createdAt).toLocaleDateString()}
+                    </button>
+                  </Link>
+                  {isAdmin && (
+                    <Link key={game.id + "admin"} to={"/admin/game/" + game.id}>
+                      <button key={game.id + "adminBtn"}>
+                        Go to Admin page
+                      </button>
+                    </Link>
+                  )}
+                </>
+              );
+            })
           ) : (
             <p>no existing games were found.</p>
           )}
