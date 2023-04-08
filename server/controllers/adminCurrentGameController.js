@@ -74,3 +74,19 @@ export const assignPairs = asyncHandler(async (req, res, next) => {
     success: true,
   });
 });
+
+// @desc    Start game
+// @route   PUT /api/v1/admin/game/:id/gamestarted
+// @access  Private/Admin
+export const startGame = asyncHandler(async (req, res, next) => {
+  const game = await Game.findByIdAndUpdate(
+    req.params.id,
+    { isStarted: true },
+    { new: true }
+  );
+
+  res.status(200).json({
+    success: true,
+    data: game,
+  });
+});

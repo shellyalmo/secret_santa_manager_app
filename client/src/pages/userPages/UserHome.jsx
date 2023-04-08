@@ -49,8 +49,8 @@ const UserHome = () => {
           </h2>
           <h4>
             Here you can see who is your gift receiver and get customized gift
-            ideas. If you are an admin, you can assign participants to couples
-            randomly and keep track of their progress in the game.
+            ideas. If you are an admin, you can randomly assign a gift receiver
+            for each participant, and keep track of their progress in the game.
           </h4>
           <h4>
             Our App also supports themes for Purim's game ("Gamad-Anak") and for

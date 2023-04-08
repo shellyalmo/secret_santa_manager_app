@@ -23,6 +23,10 @@ const CurrentGame = () => {
     setShuffleCount((prev) => prev + 1);
   };
 
+  const startGameHandler = async () => {
+    // update the isStarted
+    await secretSantaApi.put(`/admin/game/${id}/gamestarted`);
+  };
   return (
     <>
       <div>
@@ -62,8 +66,8 @@ const CurrentGame = () => {
           </tbody>
         </table>
         <button onClick={assignPairsHandler}>Shuffle Participants!</button>
-        {/* todo */}
-        <button type="">Start Game!</button>
+
+        <button onClick={startGameHandler}>Start Game!</button>
       </div>
     </>
   );
