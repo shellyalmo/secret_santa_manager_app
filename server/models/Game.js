@@ -23,6 +23,7 @@ const GameSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+        unique: [true, "each user joins once"],
       },
     ],
     assignments: [
@@ -34,6 +35,9 @@ const GameSchema = new mongoose.Schema(
         receiver: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "User",
+        },
+        finished: {
+          type: Boolean,
         },
       },
     ],
