@@ -36,7 +36,8 @@ const Gifts = () => {
     }
   };
 
-  const handleFinishedClick = () => {
+  const handleFinishedClick = async () => {
+    await secretSantaApi.put(`/user/game/${id}`);
     setShowConfetti(true);
     setTimeout(() => {
       setShowConfetti(false);

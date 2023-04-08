@@ -31,6 +31,22 @@ export const getCurrentGamePerUser = asyncHandler(async (req, res, next) => {
   }
 });
 
+// @desc    update finished game per user
+// @route   PUT /api/v1/user/game/:id
+// @access  Private/User
+export const finishGame = asyncHandler(async (req, res, next) => {
+  const game = await Game.findById(req.params.id);
+  const gameAssignments = game.assignments;
+  const userAssignment = gameAssignments.find((a) =>
+    a.giver.equals(req.user.id)
+  );
+  userAssignment.finished = true;
+  await game.save(); // save the changes to the database
+  res.status(200).json({
+    success: true,
+  });
+});
+
 // @desc    post gift ideas from ChatGPT
 // @route   POST /api/v1//user/game/:id
 // @access  Private/User

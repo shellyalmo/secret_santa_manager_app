@@ -24,7 +24,7 @@ export const getCurrentUsersPerGame = asyncHandler(async (req, res, next) => {
         fullName: user.name,
         email: user.email,
         receiver: receiver.name,
-        finished: gameAssignments.finished,
+        finished: relevantAssignment.finished,
         id: user.id,
       };
     })
