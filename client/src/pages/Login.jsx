@@ -62,7 +62,7 @@ const Login = () => {
           </label>
           <input
             type="password"
-            placeholder="Hunter2"
+            placeholder="Enter password"
             name="password"
             required
             onChange={(e) => {

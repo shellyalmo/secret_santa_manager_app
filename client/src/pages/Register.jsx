@@ -79,6 +79,7 @@ const Login = () => {
                 try {
                   const result = await register(form);
                   if (result.status === 200) {
+                    localStorage.setItem("token", result.data.token);
                     navigate("/user");
                   } else {
                     alert("fail");
