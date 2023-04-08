@@ -14,22 +14,22 @@ export const getCurrentUsersPerGame = asyncHandler(async (req, res, next) => {
     game.users.map(async (id) => {
       const user = await User.findById(id);
       const relevantAssignment = gameAssignments.find((assignment) => {
-        return assignment.giver === id;
+        return assignment.giver.equals(id);
       });
-      let receiver = "unassigned";
+      let receiver = { name: "unassigned" };
       if (relevantAssignment) {
-        receiver = await User.findById(relevantAssignment.receiver).name;
+        receiver = await User.findById(relevantAssignment.receiver);
       }
       return {
         fullName: user.name,
         email: user.email,
-        receiver,
+        receiver: receiver.name,
         finished: gameAssignments.finished,
         id: user.id,
       };
     })
   );
-
+  currentUsersForGame.sort((a, b) => a.fullName.localeCompare(b.fullName));
   res.status(200).json({
     success: true,
     data: currentUsersForGame,
@@ -46,11 +46,7 @@ export const assignPairs = asyncHandler(async (req, res, next) => {
     game.users.map(async (id) => {
       const user = await User.findById(id);
       return {
-        fullName: user.name,
-        email: user.email,
-        receiver: "unassigned",
-        finished: false,
-        id: user.id,
+        giver: user.id,
       };
     })
   );
@@ -59,14 +55,21 @@ export const assignPairs = asyncHandler(async (req, res, next) => {
 
   participants = _.shuffle(participants);
 
-  participants.forEach((participant, i) => {
+  participants.forEach(async (participant, i) => {
     if (i === participants.length - 1) {
-      participant.receiver = participants[0].fullName;
+      participant.receiver = participants[0].giver;
     } else {
-      participant.receiver = participants[i + 1].fullName;
+      participant.receiver = participants[i + 1].giver;
     }
+    participant.finished = false;
   });
-  participants.sort((a, b) => a.fullName.localeCompare(b.fullName));
+
+  // Update the assignments array in the database
+  const filter = { _id: game._id };
+  const update = { $set: { assignments: participants } };
+  const options = { new: true }; // Return the updated document
+  const updatedGame = await Game.findOneAndUpdate(filter, update, options);
+
   res.status(200).json({
     success: true,
   });
