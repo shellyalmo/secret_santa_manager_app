@@ -36,7 +36,7 @@ const Gifts = () => {
     }
   };
 
-  const handleClick = () => {
+  const handleFinishedClick = () => {
     setShowConfetti(true);
     setTimeout(() => {
       setShowConfetti(false);
@@ -75,7 +75,9 @@ const Gifts = () => {
           {giftIdeas}
         </ul>
       </div>
-      <button onClick={handleClick}>Notify Admin I gave my gift!</button>
+      <button onClick={handleFinishedClick}>
+        Notify Admin I gave my gift!
+      </button>
       {showConfetti && <Confetti />}
     </>
   );
