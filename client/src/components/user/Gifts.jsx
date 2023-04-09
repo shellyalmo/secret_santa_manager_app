@@ -6,20 +6,18 @@ import useAxios from "../../hooks/useAxios";
 import { secretSantaApi } from "../../api/api.js";
 
 const getGiftIdeasFromChatGPT = (receiverDescription, id) => {
-  return secretSantaApi.post(`/user/game/${id}`);
+  return secretSantaApi.post(`/user/game/${id}`, { receiverDescription });
 };
 
 const Gifts = () => {
   const [showConfetti, setShowConfetti] = useState(false);
-  const [giftIdeas, setGiftIdeas] = useState("");
+  const [giftIdeas, setGiftIdeas] = useState([]);
   const [receiverDescription, setReceiverDescription] = useState("");
   const { id } = useParams(); // get the ID from the URL
   const { data, error } = useAxios(`/user/game/${id}`);
 
-  let gifts = [];
   let receiver = "";
   if (data) {
-    gifts = data.gifts;
     receiver = data.receiver;
   }
 
@@ -27,7 +25,13 @@ const Gifts = () => {
     try {
       const result = await getGiftIdeasFromChatGPT(receiverDescription, id);
       if (result.status === 200) {
-        setGiftIdeas(result.data.data);
+        try {
+          const arr = JSON.parse(result.data.data);
+          setGiftIdeas(arr);
+        } catch (error) {
+          console.warn("couldn't parse", result.data.data);
+          setGiftIdeas([result.data.data]);
+        }
       } else {
         alert("fail");
       }
@@ -70,10 +74,9 @@ const Gifts = () => {
       <div>
         <h3>Gift Ideas for {receiver}:</h3>
         <ul>
-          {gifts.map((gift) => {
-            return <li key={gift.name}>{gift.name}</li>;
+          {giftIdeas.map((gift) => {
+            return <li key={gift}>{gift}</li>;
           })}
-          {giftIdeas}
         </ul>
       </div>
       <button onClick={handleFinishedClick}>

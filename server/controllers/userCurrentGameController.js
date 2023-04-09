@@ -2,6 +2,7 @@ import ErrorResponse from "../utils/errorResponse.js";
 import asyncHandler from "../middleware/asyncHandler.js";
 import Game from "../models/Game.js";
 import User from "../models/User.js";
+import { callChatGPT } from "../models/ChatGPT.js";
 
 // @desc    Get current game per user
 // @route   GET /api/v1/user/game/:id
@@ -17,16 +18,10 @@ export const getCurrentGamePerUser = asyncHandler(async (req, res, next) => {
     const user = await User.findById(userAssignment?.receiver);
     res.status(200).json({
       receiver: user.name,
-      gifts: [
-        { name: "Fluffy Pyjamas", id: 1 },
-        { name: "Homemade Cookies", id: 2 },
-        { name: "DIY soap kit", id: 3 },
-      ],
     });
   } else {
     res.status(200).json({
       receiver: "unassigned",
-      gifts: [],
     });
   }
 });
@@ -51,8 +46,9 @@ export const finishGame = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1//user/game/:id
 // @access  Private/User
 export const getGiftIdeasFromChatGPT = asyncHandler(async (req, res, next) => {
+  const receiverDescription = req.body;
   res.status(200).json({
-    data: "bob would enjoy a jar of pickles",
+    data: await callChatGPT(receiverDescription),
     success: true,
   });
 });
