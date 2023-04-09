@@ -1,14 +1,11 @@
 import "../../styles/secretSanta.css";
 import { useParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { secretSantaApi } from "../../api/api";
 
 const CurrentGame = () => {
   const [shuffleCount, setShuffleCount] = useState(0);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(
-    localStorage.getItem("shuffleDisabled") === "true"
-  );
   const { id } = useParams();
 
   const { data, error } = useAxios(
@@ -29,24 +26,7 @@ const CurrentGame = () => {
   const startGameHandler = async () => {
     // update the isStarted
     await secretSantaApi.put(`/admin/game/${id}/gamestarted`);
-    setIsButtonDisabled(true);
-    localStorage.setItem("shuffleDisabled", "true");
   };
-
-  useEffect(() => {
-    // Disable the button if the game has already been started
-    const checkIfGameStarted = async () => {
-      const response = await secretSantaApi.get(
-        `/admin/game/${id}/gamestarted`
-      );
-      if (response.data.isStarted) {
-        setIsButtonDisabled(true);
-        localStorage.setItem("shuffleDisabled", "true");
-      }
-    };
-    checkIfGameStarted();
-  }, [id]);
-
   return (
     <>
       <div>
@@ -85,9 +65,7 @@ const CurrentGame = () => {
             })}
           </tbody>
         </table>
-        <button onClick={assignPairsHandler} disabled={isButtonDisabled}>
-          Shuffle Participants!
-        </button>
+        <button onClick={assignPairsHandler}>Shuffle Participants!</button>
 
         <button onClick={startGameHandler}>Start Game!</button>
       </div>
