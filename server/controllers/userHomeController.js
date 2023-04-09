@@ -21,12 +21,15 @@ export const getGamesPerUser = asyncHandler(async (req, res, next) => {
 // @route   PUT /api/v1/user
 // @access  Private/User
 export const joinGame = asyncHandler(async (req, res, next) => {
-  await Game.findByIdAndUpdate(req.body.gameId, {
-    $push: { users: req.user.id },
-  });
-  await User.findByIdAndUpdate(req.user.id, {
-    $push: { games: req.body.gameId },
-  });
+  const game = await Game.findById(req.body.gameId);
+  if (!game.users.includes(req.user.id)) {
+    await Game.findByIdAndUpdate(req.body.gameId, {
+      $push: { users: req.user.id },
+    });
+    await User.findByIdAndUpdate(req.user.id, {
+      $push: { games: req.body.gameId },
+    });
+  }
 
   res.status(201).json({
     success: true,
