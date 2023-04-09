@@ -33,6 +33,8 @@ const UserSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Game",
+        unique: [true, "each user joins once"],
+        index: { unique: true },
       },
     ],
 
