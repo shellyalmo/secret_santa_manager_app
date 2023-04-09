@@ -41,6 +41,12 @@ export const getCurrentUsersPerGame = asyncHandler(async (req, res, next) => {
 // @access  Private/Admin
 export const assignPairs = asyncHandler(async (req, res, next) => {
   const game = await Game.findById(req.params.id);
+  if (game.isStarted) {
+    res.status(400).json({
+      success: false,
+    });
+    return;
+  }
 
   const currentUsersForGame = await Promise.all(
     game.users.map(async (id) => {
