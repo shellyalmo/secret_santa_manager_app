@@ -24,6 +24,7 @@ const GameSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         unique: [true, "each user joins once"],
+        index: { unique: true },
       },
     ],
     assignments: [
