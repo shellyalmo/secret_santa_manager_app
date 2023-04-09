@@ -43,7 +43,15 @@ const CurrentGame = () => {
             </li>
             <li>After login, type in the game id:{id}</li>
           </ol>
-          <button type="">Click to copy</button>
+          <button
+            onClick={() => {
+              navigator.clipboard.writeText(
+                `Go to: login to game link. After login, type in the game id:${id}`
+              );
+            }}
+          >
+            Click to copy
+          </button>
         </section>
         <h3>List of Participants:</h3>
         <table>
