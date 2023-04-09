@@ -19,6 +19,8 @@ const CurrentGame = () => {
   const assignPairsHandler = async () => {
     // update the participants table
     await secretSantaApi.put(`/admin/game/${id}`);
+    // todo: if shuffle returns 400- make shuffle btn red
+
     //refetch the data because the url is the dependency and it changed
     setShuffleCount((prev) => prev + 1);
   };
@@ -26,6 +28,7 @@ const CurrentGame = () => {
   const startGameHandler = async () => {
     // update the isStarted
     await secretSantaApi.put(`/admin/game/${id}/gamestarted`);
+    // todo: if start game returns 400- make startgame btn red
   };
   return (
     <>
