@@ -1,25 +1,40 @@
 import "../../styles/secretSanta.css";
 import { useParams } from "react-router-dom";
+import { Button, message, Space } from "antd";
+
 import useAxios from "../../hooks/useAxios";
 import { useState } from "react";
 import { secretSantaApi } from "../../api/api";
 
 const CurrentGame = () => {
   const [shuffleCount, setShuffleCount] = useState(0);
+  const [messageApi, contextHolder] = message.useMessage();
+
   const { id } = useParams();
 
-  const { data, error } = useAxios(
-    `/admin/game/${id}?assignedPairs=${shuffleCount}`
-  );
+  const { data } = useAxios(`/admin/game/${id}?assignedPairs=${shuffleCount}`);
   let participants = [];
 
   if (data) {
     participants = data.data;
   }
+
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "Can't shuffle participants after the game started!",
+    });
+  };
+
   const assignPairsHandler = async () => {
     // update the participants table
-    await secretSantaApi.put(`/admin/game/${id}`);
-    // todo: if shuffle returns 400- make shuffle btn red
+    try {
+      const result = await secretSantaApi.put(`/admin/game/${id}`);
+    } catch (err) {
+      error();
+
+      console.error(err);
+    }
 
     //refetch the data because the url is the dependency and it changed
     setShuffleCount((prev) => prev + 1);
@@ -28,10 +43,11 @@ const CurrentGame = () => {
   const startGameHandler = async () => {
     // update the isStarted
     await secretSantaApi.put(`/admin/game/${id}/gamestarted`);
-    // todo: if start game returns 400- make startgame btn red
   };
+
   return (
     <>
+      {contextHolder}
       <div>
         <h1>Current Game</h1>
 
