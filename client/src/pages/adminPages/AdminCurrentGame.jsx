@@ -1,6 +1,6 @@
 import "../../styles/secretSanta.css";
 import { useParams } from "react-router-dom";
-import { Button, message, Space } from "antd";
+import { message } from "antd";
 
 import useAxios from "../../hooks/useAxios";
 import { useState } from "react";

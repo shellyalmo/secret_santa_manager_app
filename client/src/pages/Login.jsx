@@ -2,6 +2,7 @@ import "../styles/login.css";
 import { useState } from "react";
 import { secretSantaApi } from "../api/api";
 import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 /**
  *
@@ -16,6 +17,8 @@ const loginRequest = (form) => {
 };
 
 const Login = () => {
+  const [messageApi, contextHolder] = message.useMessage();
+
   const navigate = useNavigate();
   const [form, setForm] = useState({
     password: "",
@@ -29,15 +32,22 @@ const Login = () => {
         localStorage.setItem("token", result.data.token);
         navigate("/user");
       } else {
-        alert("fail");
+        messageApi.open({
+          type: "error",
+          content: "Couldn't login",
+        });
       }
     } catch (error) {
-      alert("fail");
+      messageApi.open({
+        type: "error",
+        content: "Couldn't login",
+      });
     }
   };
 
   return (
     <div className="login-screen">
+      {contextHolder}
       <div className="login-showcase"></div>
       <div className="login">
         <h2>Welcome to Secret Santa App!</h2>

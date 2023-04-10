@@ -1,19 +1,24 @@
 import "../../styles/secretSanta.css";
 
 import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 import { useState } from "react";
 import { secretSantaApi } from "../../api/api";
 
-const createGame = (theme) => {
-  if (theme === "") {
-    alert("Game must have a theme");
-    return Promise.reject();
-  }
-  return secretSantaApi.post("/admin/gamesettings", { theme });
-};
-
 const GameSettings = () => {
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const createGame = (theme) => {
+    if (theme === "") {
+      messageApi.open({
+        type: "error",
+        content: "Game must have a theme!",
+      });
+      return Promise.reject();
+    }
+    return secretSantaApi.post("/admin/gamesettings", { theme });
+  };
   const nav = useNavigate();
   const [theme, setTheme] = useState("");
 
@@ -26,6 +31,7 @@ const GameSettings = () => {
 
   return (
     <>
+      {contextHolder}
       <div>
         <h1>Choose a Holiday Theme:</h1>
       </div>

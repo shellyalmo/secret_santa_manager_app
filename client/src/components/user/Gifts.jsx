@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Confetti from "react-confetti";
 import { useParams } from "react-router-dom";
+import { message } from "antd";
 
 import useAxios from "../../hooks/useAxios";
 import { secretSantaApi } from "../../api/api.js";
@@ -15,6 +16,7 @@ const Gifts = () => {
   const [receiverDescription, setReceiverDescription] = useState("");
   const { id } = useParams(); // get the ID from the URL
   const { data, error } = useAxios(`/user/game/${id}`);
+  const [messageApi, contextHolder] = message.useMessage();
 
   let receiver = "";
   if (data) {
@@ -33,10 +35,16 @@ const Gifts = () => {
           setGiftIdeas([result.data.data]);
         }
       } else {
-        alert("fail");
+        messageApi.open({
+          type: "error",
+          content: "Something went wrong",
+        });
       }
     } catch (error) {
-      alert("fail");
+      messageApi.open({
+        type: "error",
+        content: "Something went wrong",
+      });
     }
   };
 
@@ -50,6 +58,7 @@ const Gifts = () => {
 
   return (
     <>
+      {contextHolder}
       <h2>Your receiver is {receiver}!</h2>
       <form action="">
         <label htmlFor="">

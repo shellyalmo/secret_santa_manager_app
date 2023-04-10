@@ -2,6 +2,7 @@ import "../styles/login.css";
 import { useState } from "react";
 import { secretSantaApi } from "../api/api";
 import { useNavigate } from "react-router-dom";
+import {  message } from "antd";
 
 /**
  *
@@ -22,9 +23,11 @@ const Login = () => {
     email: "",
     name: "",
   });
+  const [messageApi, contextHolder] = message.useMessage();
 
   return (
     <div className="login-screen">
+      {contextHolder}
       <div className="login-showcase"></div>
       <div className="login">
         <h2>Welcome to Secret Santa App!</h2>
@@ -82,10 +85,16 @@ const Login = () => {
                     localStorage.setItem("token", result.data.token);
                     navigate("/user");
                   } else {
-                    alert("fail");
+                    messageApi.open({
+                      type: "error",
+                      content: "Something went wrong",
+                    });
                   }
                 } catch (error) {
-                  alert("fail");
+                  messageApi.open({
+                    type: "error",
+                    content: "Something went wrong",
+                  });
                 }
               }}
               className="login-btn"
