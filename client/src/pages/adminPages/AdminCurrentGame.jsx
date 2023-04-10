@@ -55,14 +55,17 @@ const CurrentGame = () => {
           <h3>Instructions to share with your participants:</h3>
           <ol>
             <li>
-              Go to: <a href="#">login to game</a>
+              Go to:{" "}
+              <a href="https://secret-santa-manager-react.onrender.com/">
+                login to game
+              </a>
             </li>
             <li>After login, type in the game id:{id}</li>
           </ol>
           <button
             onClick={() => {
               navigator.clipboard.writeText(
-                `Go to: login to game link. After login, type in the game id:${id}`
+                `Go to: login to https://secret-santa-manager-react.onrender.com/. After login, type in the game id:${id}`
               );
             }}
           >
