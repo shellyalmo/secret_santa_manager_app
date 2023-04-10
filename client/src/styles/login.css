@@ -63,11 +63,11 @@
 
 @media only screen and (min-width: 601px) and (max-width: 1505px) {
   .login-showcase {
-    width: 60vw;
-    height: 50vh;
+    width: 40vw;
+    height: 70vh;
   }
   .login {
     width: 50vw;
-    height: 50vh;
+    height: 70vh;
   }
 }

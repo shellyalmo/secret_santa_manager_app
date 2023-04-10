@@ -99,9 +99,6 @@ const Login = () => {
             >
               Register
             </button>
-            {/* <span>
-              Forgot <a href="#">password?</a>
-            </span> */}
           </div>
         </form>
       </div>
