@@ -45,16 +45,15 @@ const UserHome = () => {
           <h1>Secret Santa Game App</h1>
           <h2>
             Hello {currentUser?.data.name}! Welcome to the easiest platform for
-            participating and managing Secret Santa games!
+            playing Secret Santa games!
           </h2>
           <h4>
             Here you can see who is your gift receiver and get customized gift
-            ideas. If you are an admin, you can randomly assign a gift receiver
-            for each participant, and keep track of their progress in the game.
+            ideas.
           </h4>
           <h4>
-            Our App also supports themes for Purim's game ("Gamad-Anak") and for
-            "Eid al-Fitr".
+            If you are an admin, you can randomly assign a gift receiver for
+            each participant, and keep track of their progress in the game.
           </h4>
         </div>
         <div className="games-list">
@@ -70,7 +69,11 @@ const UserHome = () => {
                 value={gameId}
                 required
               />
-              <button type="submit" onClick={joinClickHandler}>
+              <button
+                type="submit"
+                onClick={joinClickHandler}
+                className="success-btn"
+              >
                 Join Game
               </button>
             </form>
@@ -85,7 +88,11 @@ const UserHome = () => {
                   <Link key={game.id} to={"/user/game/" + game.id}>
                     <button
                       key={game.id + "btn"}
-                      className={`${game.theme.toLowerCase()}-btn`}
+                      className={
+                        game.theme === "Eid Al Fitr"
+                          ? "eid-btn"
+                          : `${game.theme.toLowerCase()}-btn`
+                      }
                     >
                       {game.theme}, created at:{" "}
                       {new Date(game.createdAt).toLocaleDateString()}
@@ -105,8 +112,9 @@ const UserHome = () => {
             <p>no existing games were found.</p>
           )}
         </div>
+        <h4>Or:</h4>
         <Link to="/admin/gamesettings">
-          <button className="start-game-btn">Start a New Game</button>
+          <button className="success-btn">Start a New Game</button>
         </Link>
       </div>
     </div>
