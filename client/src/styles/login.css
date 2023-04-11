@@ -15,11 +15,15 @@
   background-color: white;
   height: 70vh;
   width: 50vw;
+  align-items: center;
+  justify-content: center;
 }
 .login-form {
   display: flex;
   flex-direction: column;
   padding: 1rem 7rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-showcase {
@@ -56,18 +60,28 @@
     height: 60vh;
   }
   .login-form {
-    align-items: center;
     gap: 0.5rem;
   }
 }
 
-@media only screen and (min-width: 601px) and (max-width: 1505px) {
+@media only screen and (min-width: 601px) and (max-width: 1305px) {
   .login-showcase {
-    width: 40vw;
-    height: 70vh;
+    width: 60vw;
+    height: 80vh;
   }
   .login {
     width: 50vw;
-    height: 70vh;
+    height: 80vh;
+  }
+}
+
+@media only screen and (min-width: 1306px) {
+  .login-showcase {
+    width: 60vw;
+    height: 90vh;
+  }
+  .login {
+    width: 40vw;
+    height: 90vh;
   }
 }
