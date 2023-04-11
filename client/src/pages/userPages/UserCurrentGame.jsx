@@ -2,6 +2,7 @@ import React from "react";
 import Gifts from "../../components/user/Gifts";
 import { useParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
+import "../../styles/secretSanta.css";
 
 const UserCurrentGame = () => {
   const { id } = useParams();
@@ -20,9 +21,25 @@ const UserCurrentGame = () => {
       {gameStarted && !currentUserFinishedAssignments ? (
         <Gifts />
       ) : gameStarted && currentUserFinishedAssignments ? (
-        <div>Thanks for playing, bye!</div>
+        <div
+          className={`${
+            result?.theme === "Eid Al Fitr"
+              ? "eid-btn"
+              : `${result?.theme.toLowerCase()}-btn`
+          } user-instructions-background`}
+        >
+          <h1>Thanks for playing, see you next time!</h1>
+        </div>
       ) : (
-        <div>Wait for admin to start the game!</div>
+        <div
+          className={`${
+            result?.theme === "Eid Al Fitr"
+              ? "eid-btn"
+              : `${result?.theme.toLowerCase()}-btn`
+          } user-instructions-background`}
+        >
+          <h1>Wait for admin to start the game!</h1>
+        </div>
       )}
     </>
   );

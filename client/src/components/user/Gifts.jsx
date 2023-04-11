@@ -2,7 +2,7 @@ import { useState } from "react";
 import Confetti from "react-confetti";
 import { useParams } from "react-router-dom";
 import { message } from "antd";
-
+import "../../styles/secretSanta.css";
 import useAxios from "../../hooks/useAxios";
 import { secretSantaApi } from "../../api/api.js";
 
@@ -15,6 +15,8 @@ const Gifts = () => {
   const [giftIdeas, setGiftIdeas] = useState([]);
   const [receiverDescription, setReceiverDescription] = useState("");
   const { id } = useParams(); // get the ID from the URL
+  const { data: userGames } = useAxios("/user");
+  const result = userGames?.find((game) => game.id === id);
   const { data, error } = useAxios(`/user/game/${id}`);
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -57,34 +59,59 @@ const Gifts = () => {
   };
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+      className={`${
+        result?.theme === "Eid Al Fitr"
+          ? "eid-btn"
+          : `${result?.theme.toLowerCase()}-btn`
+      } user-instructions-background`}
+    >
       {contextHolder}
       <h2>Your receiver is {receiver}!</h2>
       <form action="">
         <label htmlFor="">
-          Describe what {receiver} is like, and what {receiver} likes to do and
-          eat. Please add any information that can help us find the perfect gift
-          ideas:
+          <h4>
+            {" "}
+            Describe what {receiver} is like and add any information that can
+            help us find the perfect gift ideas:
+          </h4>
         </label>
-        <textarea
-          name="textarea"
-          rows="10"
-          cols="50"
-          maxLength="500"
-          onChange={(e) => {
-            setReceiverDescription(e.target.value);
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-end",
+            gap: "2%",
+            justifyContent: "center",
           }}
-          value={receiverDescription}
-        ></textarea>
-        <button type="button" onClick={submitChatGPTRequest}>
-          Submit
-        </button>
+        >
+          <textarea
+            name="textarea"
+            rows="10"
+            cols="50"
+            maxLength="500"
+            onChange={(e) => {
+              setReceiverDescription(e.target.value);
+            }}
+            value={receiverDescription}
+          ></textarea>
+          <button type="button" onClick={submitChatGPTRequest}>
+            Submit
+          </button>
+        </div>
       </form>
       <div>
         <h3>Gift Ideas for {receiver}:</h3>
         <ul>
           {giftIdeas.map((gift) => {
-            return <li key={gift}>{gift}</li>;
+            return (
+              <li style={{ listStyleType: "none" }} key={gift}>
+                {gift}
+              </li>
+            );
           })}
         </ul>
       </div>
@@ -92,7 +119,7 @@ const Gifts = () => {
         Notify Admin I gave my gift!
       </button>
       {showConfetti && <Confetti />}
-    </>
+    </div>
   );
 };
 
