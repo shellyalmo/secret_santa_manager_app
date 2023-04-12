@@ -80,19 +80,12 @@ const Gifts = () => {
             help us find the perfect gift ideas:
           </h4>
         </label>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-end",
-            gap: "2%",
-            justifyContent: "center",
-          }}
-        >
+        <div className="gifts-form">
           <textarea
             name="textarea"
             rows="10"
-            cols="50"
-            maxLength="500"
+            cols="30"
+            maxLength="200"
             onChange={(e) => {
               setReceiverDescription(e.target.value);
             }}
@@ -108,7 +101,7 @@ const Gifts = () => {
         <ul>
           {giftIdeas.map((gift) => {
             return (
-              <li style={{ listStyleType: "none" }} key={gift}>
+              <li className="gift-idea-item" key={gift}>
                 {gift}
               </li>
             );
