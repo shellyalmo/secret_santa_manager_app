@@ -11,8 +11,10 @@ const CurrentGame = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const { id } = useParams();
-
+  const { data: userGames } = useAxios("/user");
+  const result = userGames?.find((game) => game.id === id);
   const { data } = useAxios(`/admin/game/${id}?assignedPairs=${shuffleCount}`);
+
   let participants = [];
 
   if (data) {
@@ -46,60 +48,67 @@ const CurrentGame = () => {
   };
 
   return (
-    <>
+    <div
+      className={`${
+        result?.theme === "Eid Al Fitr"
+          ? "eid-btn"
+          : `${result?.theme.toLowerCase()}-btn `
+      } user-instructions-background `}
+      style={{ flexDirection: "column", gap: "2%" }}
+    >
       {contextHolder}
-      <div>
-        <h1>Current Game</h1>
-
-        <section>
-          <h3>Instructions to share with your participants:</h3>
-          <ol>
-            <li>
-              Go to:{" "}
+      <h1>Current Game</h1>
+      <section>
+        <h3>Instructions to share with your participants:</h3>
+        <ol style={{ textAlign: "left" }}>
+          <li>
+            Go to:{" "}
+            <span>
               <a href="https://secret-santa-manager-react.onrender.com/">
-                login to game
+                login link
               </a>
-            </li>
-            <li>After login, type in the game id:{id}</li>
-          </ol>
-          <button
-            onClick={() => {
-              navigator.clipboard.writeText(
-                `Go to: login to https://secret-santa-manager-react.onrender.com/. After login, type in the game id:${id}`
-              );
-            }}
-          >
-            Click to copy
-          </button>
-        </section>
-        <h3>List of Participants:</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Full Name</th>
-              <th>Email</th>
-              <th>Receiver</th>
-              <th>Finished</th>
-            </tr>
-          </thead>
-          <tbody>
-            {participants.map((participant) => {
-              return (
-                <tr key={participant.id}>
-                  <td>{participant?.fullName}</td>
-                  <td>{participant?.email}</td>
-                  <td>{participant?.receiver}</td>
-                  <td>{participant?.finished?.toString()}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+            </span>
+          </li>
+          <li>After login, type in the game id: {id}</li>
+        </ol>
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(
+              `Go to: login to https://secret-santa-manager-react.onrender.com/. After login, type in the game id:${id}`
+            );
+          }}
+        >
+          Click to copy
+        </button>
+      </section>
+      <h3>List of Participants:</h3>
+      <table className="participants-table">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Receiver</th>
+            <th>Finished</th>
+          </tr>
+        </thead>
+        <tbody>
+          {participants.map((participant) => {
+            return (
+              <tr key={participant.id}>
+                <td>{participant?.fullName}</td>
+                <td>{participant?.email}</td>
+                <td>{participant?.receiver}</td>
+                <td>{participant?.finished?.toString()}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <div className="admin-actions-btns">
         <button onClick={assignPairsHandler}>Shuffle Participants!</button>
-
         <button onClick={startGameHandler}>Start Game!</button>
       </div>
-    </>
+    </div>
   );
 };
 
