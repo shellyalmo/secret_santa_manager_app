@@ -6,6 +6,14 @@ import "../../styles/secretSanta.css";
 import useAxios from "../../hooks/useAxios";
 import { secretSantaApi } from "../../api/api.js";
 
+const holidaysGreetings = [
+  {
+    "Eid Al Fitr": "Eid Mubarak!",
+  },
+  { Purim: "Happy Purim!" },
+  { Christmas: "Merry Christmas!" },
+];
+
 const getGiftIdeasFromChatGPT = (receiverDescription, id) => {
   return secretSantaApi.post(`/user/game/${id}`, { receiverDescription });
 };
@@ -58,6 +66,9 @@ const Gifts = () => {
     }, 10000);
   };
 
+  const holidayGreeting = holidaysGreetings.find(
+    (greeting) => Object.keys(greeting)[0] === result?.theme
+  );
   return (
     <div
       style={{
@@ -71,7 +82,10 @@ const Gifts = () => {
       } user-instructions-background`}
     >
       {contextHolder}
-      <h2>Your receiver is {receiver}!</h2>
+      <h2>
+        {holidayGreeting && Object.values(holidayGreeting)[0]} Your receiver is{" "}
+        {receiver}!
+      </h2>
       <form action="">
         <label htmlFor="">
           <h4>

@@ -6,6 +6,14 @@ import useAxios from "../../hooks/useAxios";
 import { useState } from "react";
 import { secretSantaApi } from "../../api/api";
 
+const holidaysGreetings = [
+  {
+    "Eid Al Fitr": "Eid Mubarak!",
+  },
+  { Purim: "Happy Purim!" },
+  { Christmas: "Merry Christmas!" },
+];
+
 const CurrentGame = () => {
   const [shuffleCount, setShuffleCount] = useState(0);
   const [messageApi, contextHolder] = message.useMessage();
@@ -47,6 +55,9 @@ const CurrentGame = () => {
     await secretSantaApi.put(`/admin/game/${id}/gamestarted`);
   };
 
+  const holidayGreeting = holidaysGreetings.find(
+    (greeting) => Object.keys(greeting)[0] === result?.theme
+  );
   return (
     <div
       className={`${
@@ -57,7 +68,7 @@ const CurrentGame = () => {
       style={{ flexDirection: "column", gap: "2%" }}
     >
       {contextHolder}
-      <h1>Current Game</h1>
+      {holidayGreeting && <h1>{Object.values(holidayGreeting)[0]}</h1>}
       <section>
         <h3>Instructions to share with your participants:</h3>
         <ol style={{ textAlign: "left" }}>
