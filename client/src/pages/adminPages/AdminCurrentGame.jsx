@@ -1,6 +1,6 @@
 import "../../styles/secretSanta.css";
 import { useParams } from "react-router-dom";
-import { message } from "antd";
+import { message, Table } from "antd";
 
 import useAxios from "../../hooks/useAxios";
 import { useState } from "react";
@@ -82,28 +82,17 @@ const CurrentGame = () => {
         </button>
       </section>
       <h3>List of Participants:</h3>
-      <table className="participants-table">
-        <thead>
-          <tr>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Receiver</th>
-            <th>Finished</th>
-          </tr>
-        </thead>
-        <tbody>
-          {participants.map((participant) => {
-            return (
-              <tr key={participant.id}>
-                <td>{participant?.fullName}</td>
-                <td>{participant?.email}</td>
-                <td>{participant?.receiver}</td>
-                <td>{participant?.finished?.toString()}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <Table
+        size="small"
+        columns={[
+          { title: "Full Name", dataIndex: "fullName", key: "fullName" },
+          { title: "Email", dataIndex: "email", key: "email" },
+          { title: "Receiver", dataIndex: "receiver", key: "receiver" },
+          { title: "Done", dataIndex: "finished", key: "id" },
+        ]}
+        dataSource={participants}
+        pagination={false}
+      />
       <div className="admin-actions-btns">
         <button onClick={assignPairsHandler}>Shuffle Participants!</button>
         <button onClick={startGameHandler}>Start Game!</button>
