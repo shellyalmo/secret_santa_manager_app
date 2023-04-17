@@ -7,7 +7,9 @@ const secretSantaApi = axios.create({
       : "https://secret-santa-manager-app.onrender.com/api/v1",
   headers: {
     "Access-Control-Allow-Origin": "*",
-    authorization: "Bearer " + localStorage.getItem("token"),
+    authorization: localStorage.getItem("token")
+      ? "Bearer " + localStorage.getItem("token")
+      : undefined,
   },
 });
 

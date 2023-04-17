@@ -30,6 +30,8 @@ const Login = () => {
       const result = await loginRequest(form);
       if (result.status === 200) {
         localStorage.setItem("token", result.data.token);
+        secretSantaApi.defaults.headers.authorization =
+          "Bearer " + result.data.token;
         navigate("/user");
       } else {
         messageApi.open({
