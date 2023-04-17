@@ -8,10 +8,10 @@ import { secretSantaApi } from "../../api/api";
 
 const holidaysGreetings = [
   {
-    "Eid Al Fitr": "Eid Mubarak!",
+    "Eid Al Fitr": "Eid Mubarak",
   },
-  { Purim: "Happy Purim!" },
-  { Christmas: "Merry Christmas!" },
+  { Purim: "Happy Purim" },
+  { Christmas: "Merry Christmas" },
 ];
 
 const CurrentGame = () => {
@@ -22,7 +22,7 @@ const CurrentGame = () => {
   const { data: userGames } = useAxios("/user");
   const result = userGames?.find((game) => game.id === id);
   const { data } = useAxios(`/admin/game/${id}?assignedPairs=${shuffleCount}`);
-
+  const { data: currentUser } = useAxios("/auth/current-user");
   let participants = [];
 
   if (data) {
@@ -68,18 +68,15 @@ const CurrentGame = () => {
       style={{ flexDirection: "column", gap: "2%" }}
     >
       {contextHolder}
-      {holidayGreeting && <h1>{Object.values(holidayGreeting)[0]}</h1>}
+      {holidayGreeting && (
+        <h1>
+          {Object.values(holidayGreeting)[0]}, {currentUser?.data.name}!
+        </h1>
+      )}
       <section>
         <h3>Instructions to share with your participants:</h3>
         <ol style={{ textAlign: "left" }}>
-          <li>
-            Go to:
-            <span>
-              <a href="https://secret-santa-manager-react.onrender.com/">
-                login link
-              </a>
-            </span>
-          </li>
+          <li>Go to: https://secret-santa-manager-react.onrender.com/</li>
           <li>After login, type in the game id: {id}</li>
         </ol>
         <button
