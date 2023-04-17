@@ -50,7 +50,12 @@ OPENAI_API_KEY=your_openai_key
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-
+* After login, the user sees their dashboard of games where they can create a new game, join an existing game or enter previous games:
+![image](https://user-images.githubusercontent.com/33236921/232475553-9f90919f-abc8-496c-b105-db481f2b44ae.png)
+* When the game has started, the user can submit a description of their gift receiver and get gift suggestions on real time:
+![image](https://user-images.githubusercontent.com/33236921/232478319-b85acdb4-7130-48d1-a4ae-df1c9fb85890.png)
+* Admins can keep track of the participants progress in the game and assign pairs:
+![image](https://user-images.githubusercontent.com/33236921/232478503-38fb13c7-f1e9-4b55-8f40-a862be34c95a.png)
 
 
 
@@ -58,7 +63,7 @@ OPENAI_API_KEY=your_openai_key
 <!-- CONTACT -->
 ## Contact
 
-Shelly Almoznino - [LinkedIn]([https://twitter.com/your_username](https://www.linkedin.com/in/shelly-almoznino/)) 
+Shelly Almoznino - [LinkedIn](https://www.linkedin.com/in/shelly-almoznino/) 
 
 Project Link: [secret_santa_manager_app](https://github.com/shellyalmo/secret_santa_manager_app)
 
