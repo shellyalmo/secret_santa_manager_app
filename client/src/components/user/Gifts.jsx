@@ -89,7 +89,6 @@ const Gifts = () => {
       <form action="">
         <label htmlFor="">
           <h4>
-            {" "}
             Describe what {receiver} is like and add any information that can
             help us find the perfect gift ideas:
           </h4>

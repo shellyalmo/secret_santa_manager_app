@@ -73,7 +73,7 @@ const CurrentGame = () => {
         <h3>Instructions to share with your participants:</h3>
         <ol style={{ textAlign: "left" }}>
           <li>
-            Go to:{" "}
+            Go to:
             <span>
               <a href="https://secret-santa-manager-react.onrender.com/">
                 login link
@@ -99,11 +99,20 @@ const CurrentGame = () => {
           { title: "Full Name", dataIndex: "fullName", key: "fullName" },
           { title: "Email", dataIndex: "email", key: "email" },
           { title: "Receiver", dataIndex: "receiver", key: "receiver" },
-          { title: "Done", dataIndex: "finished", key: "id" },
+          {
+            title: "Done",
+            dataIndex: "finished",
+            key: "id",
+            render: (text, record) => (
+              <span>{record.finished ? "Yes" : "No"}</span>
+            ),
+          },
         ]}
         dataSource={participants}
+        rowKey="id"
         pagination={false}
       />
+
       <div className="admin-actions-btns">
         <button onClick={assignPairsHandler}>Shuffle Participants!</button>
         <button onClick={startGameHandler}>Start Game!</button>
