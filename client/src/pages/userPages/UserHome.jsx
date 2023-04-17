@@ -84,8 +84,8 @@ const UserHome = () => {
             games.map((game) => {
               const isAdmin = game?.admin === currentUser?.data?.id;
               return (
-                <>
-                  <Link key={game.id} to={"/user/game/" + game.id}>
+                <span key={game.id}>
+                  <Link to={"/user/game/" + game.id}>
                     <button
                       key={game.id + "btn"}
                       className={
@@ -105,7 +105,7 @@ const UserHome = () => {
                       </button>
                     </Link>
                   )}
-                </>
+                </span>
               );
             })
           ) : (
@@ -113,7 +113,7 @@ const UserHome = () => {
           )}
         </div>
         <h4>Or:</h4>
-        <Link to="/admin/gamesettings">
+        <Link to="/admin/gamesettings" key="new-game-button">
           <button className="success-btn">Start a New Game</button>
         </Link>
       </div>
