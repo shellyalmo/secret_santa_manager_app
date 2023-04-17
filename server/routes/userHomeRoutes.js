@@ -3,7 +3,7 @@ import {
   getGamesPerUser,
   joinGame,
 } from "../controllers/userHomeController.js";
-import { protect, authorize } from "./../middleware/authMiddleware.js";
+import { protect } from "./../middleware/authMiddleware.js";
 const router = express.Router({ mergeParams: true });
 router.use(protect);
 
