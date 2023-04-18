@@ -30,7 +30,14 @@ const GameSettings = () => {
   ];
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+
+        alignItems: "center",
+      }}
+    >
       {contextHolder}
       <div>
         <h1>Choose a Holiday Theme:</h1>
@@ -52,6 +59,7 @@ const GameSettings = () => {
       </div>
 
       <button
+        className="start-new-game-btn"
         onClick={async () => {
           try {
             const res = await createGame(theme);
@@ -63,7 +71,7 @@ const GameSettings = () => {
       >
         Create a New Game
       </button>
-    </>
+    </div>
   );
 };
 

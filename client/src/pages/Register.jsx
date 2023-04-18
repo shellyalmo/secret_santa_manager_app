@@ -2,7 +2,7 @@ import "../styles/login.css";
 import { useState } from "react";
 import { secretSantaApi } from "../api/api";
 import { useNavigate } from "react-router-dom";
-import {  message } from "antd";
+import { message } from "antd";
 
 /**
  *
@@ -66,7 +66,7 @@ const Login = () => {
           </label>
           <input
             type="password"
-            placeholder="Hunter2"
+            placeholder="Enter password"
             name="password"
             required
             onChange={(e) => {
