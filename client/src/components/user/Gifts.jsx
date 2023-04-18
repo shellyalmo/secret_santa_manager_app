@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Confetti from "react-confetti";
 import { useParams } from "react-router-dom";
-import { message } from "antd";
+import { message, Space, Spin } from "antd";
 import "../../styles/secretSanta.css";
 import useAxios from "../../hooks/useAxios";
 import { secretSantaApi } from "../../api/api.js";
@@ -22,6 +22,8 @@ const Gifts = () => {
   const [showConfetti, setShowConfetti] = useState(false);
   const [giftIdeas, setGiftIdeas] = useState([]);
   const [receiverDescription, setReceiverDescription] = useState("");
+  const [submit, setSubmit] = useState(false);
+
   const { id } = useParams(); // get the ID from the URL
   const { data: userGames } = useAxios("/user");
   const result = userGames?.find((game) => game.id === id);
@@ -34,6 +36,7 @@ const Gifts = () => {
   }
 
   const submitChatGPTRequest = async () => {
+    setSubmit(true);
     try {
       const result = await getGiftIdeasFromChatGPT(receiverDescription, id);
       if (result.status === 200) {
@@ -111,19 +114,31 @@ const Gifts = () => {
       </form>
       <div>
         <h3>Gift Ideas for {receiver}:</h3>
-        <ul>
-          {giftIdeas.map((gift) => {
-            return (
-              <li className="gift-idea-item" key={gift}>
-                {gift}
-              </li>
-            );
-          })}
-        </ul>
+        {submit && giftIdeas.length < 1 ? (
+          <Space direction="vertical" style={{ width: "100%" }}>
+            <Space>
+              <Spin size="large">
+                <div className="content" />
+              </Spin>
+            </Space>
+          </Space>
+        ) : (
+          <ul>
+            {giftIdeas.map((gift) => {
+              return (
+                <li className="gift-idea-item" key={gift}>
+                  {gift}
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
-      <button onClick={handleFinishedClick}>
-        Notify Admin I gave my gift!
-      </button>
+      {giftIdeas && (
+        <button onClick={handleFinishedClick}>
+          Notify Admin I gave my gift!
+        </button>
+      )}
       {showConfetti && <Confetti />}
     </div>
   );
