@@ -61,11 +61,12 @@ Start the server by running on the terminal from the server directory:
 ```bash
 npm run dev
 ```
-Start the running vite locally by running on the terminal from the client directory:
+Start running vite locally by running on the terminal from the client directory:
 
 ```bash
 npm run dev
 ```
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 * After login, the user sees their dashboard of games where they can create a new game, join an existing game or enter previous games:
